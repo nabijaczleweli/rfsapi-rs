@@ -1,3 +1,9 @@
+//! Raw Filesystem API for Rust — enable simpler browsing with ease
+//!
+//! This library is to enable both servers and clients to use the RFSAPI,
+//! see [D'Oh](https://github.com/thecoshman/doh) for usage example.
+
+
 #[macro_use]
 extern crate serde_derive;
 extern crate serde;
@@ -23,7 +29,7 @@ static RAW_FILE_DATA_FIELDS: &[&str] = &["mime_type", "name", "last_modified", "
 /// Header to specify when doing a request for the Raw Filesystem API,
 /// designated by "X-Raw-Filesystem-API".
 ///
-/// If RFSAPI is supported, the server should return the header.
+/// If RFSAPI is supported, the server should return the header set to true.
 #[derive(Eq, PartialEq, Ord, PartialOrd, Debug, Clone, Hash, Copy)]
 pub struct RawFsApiHeader(pub bool);
 
