@@ -260,7 +260,19 @@
 <span id="215">215</span>
 <span id="216">216</span>
 <span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
 </pre><pre class="rust ">
+<span class="doccomment">//! Raw Filesystem API for Rust — enable simpler browsing with ease</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This library is to enable both servers and clients to use the RFSAPI,</span>
+<span class="doccomment">//! see [D&#39;Oh](https://github.com/thecoshman/doh) for usage example.</span>
+
+
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_derive</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde</span>;
@@ -286,7 +298,7 @@
 <span class="doccomment">/// Header to specify when doing a request for the Raw Filesystem API,</span>
 <span class="doccomment">/// designated by &quot;X-Raw-Filesystem-API&quot;.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If RFSAPI is supported, the server should return the header.</span>
+<span class="doccomment">/// If RFSAPI is supported, the server should return the header set to true.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RawFsApiHeader</span>(<span class="kw">pub</span> <span class="ident">bool</span>);
 
