@@ -1,7 +1,6 @@
-use hyper::header::{HeaderFormat, Header};
+use hyper::header::{Raw as RawHeader, Header};
 use hyper::Error as HyperError;
 use rfsapi::RawFsApiHeader;
-use std::fmt;
 
 
 #[test]
@@ -11,41 +10,24 @@ fn header_name() {
 
 #[test]
 fn parse_header_correct() {
-    assert_eq!(RawFsApiHeader::parse_header(&[vec![b'1']]).unwrap(), RawFsApiHeader(true));
-    assert_eq!(RawFsApiHeader::parse_header(&[vec![b'0']]).unwrap(), RawFsApiHeader(false));
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(vec![b'1'])).unwrap(), RawFsApiHeader(true));
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(vec![b'0'])).unwrap(), RawFsApiHeader(false));
 }
 
 #[test]
 fn parse_header_incorrect() {
-    assert_eq!(RawFsApiHeader::parse_header(&[])
-                   .unwrap_err()
-                   .to_string(),
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(&b""[..])).unwrap_err().to_string(),
                HyperError::Header.to_string());
-    assert_eq!(RawFsApiHeader::parse_header(&[vec![]])
-                   .unwrap_err()
-                   .to_string(),
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(vec![vec![]])).unwrap_err().to_string(),
                HyperError::Header.to_string());
-    assert_eq!(RawFsApiHeader::parse_header(&[vec![b'1', b'0']])
-                   .unwrap_err()
-                   .to_string(),
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(vec![vec![b'1', b'0']])).unwrap_err().to_string(),
                HyperError::Header.to_string());
-    assert_eq!(RawFsApiHeader::parse_header(&[vec![b'1'], vec![b'1']])
-                   .unwrap_err()
-                   .to_string(),
+    assert_eq!(RawFsApiHeader::parse_header(&RawHeader::from(vec![vec![b'1'], vec![b'1']])).unwrap_err().to_string(),
                HyperError::Header.to_string());
 }
 
 #[test]
 fn fmt_header() {
-    assert_eq!(&HeaderFormatTester(RawFsApiHeader(true)).to_string(), "1");
-    assert_eq!(&HeaderFormatTester(RawFsApiHeader(false)).to_string(), "0");
-}
-
-
-struct HeaderFormatTester<T: HeaderFormat>(T);
-
-impl<T: HeaderFormat> fmt::Display for HeaderFormatTester<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.0.fmt_header(f)
-    }
+    assert_eq!(&RawFsApiHeader(true).to_string(), "1");
+    assert_eq!(&RawFsApiHeader(false).to_string(), "0");
 }

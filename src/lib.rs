@@ -16,9 +16,9 @@ use mime::Mime;
 use util::parse_rfc3339;
 use std::fmt::{self, Write};
 use hyper::Error as HyperError;
-use hyper::header::{HeaderFormat, Header};
 use serde::ser::{SerializeMap, Serializer, Serialize};
-use serde::de::{self, Deserializer, Deserialize, MapVisitor, SeqVisitor, Visitor};
+use hyper::header::{Formatter as HeaderFormatter, Raw as RawHeader, Header};
+use serde::de::{self, Deserializer, Deserialize, SeqAccess, MapAccess, Visitor};
 
 pub mod util;
 
@@ -38,9 +38,9 @@ impl Header for RawFsApiHeader {
         "X-Raw-Filesystem-API"
     }
 
-    fn parse_header(raw: &[Vec<u8>]) -> Result<RawFsApiHeader, HyperError> {
-        if raw.len() == 1 {
-            match &raw[0][..] {
+    fn parse_header(raw: &RawHeader) -> Result<RawFsApiHeader, HyperError> {
+        if let Some(line) = raw.one() {
+            match &line[..] {
                 b"0" => return Ok(RawFsApiHeader(false)),
                 b"1" => return Ok(RawFsApiHeader(true)),
                 _ => {}
@@ -48,10 +48,14 @@ impl Header for RawFsApiHeader {
         }
         Err(HyperError::Header)
     }
+
+    fn fmt_header(&self, f: &mut HeaderFormatter) -> fmt::Result {
+        f.fmt_line(&self)
+    }
 }
 
-impl HeaderFormat for RawFsApiHeader {
-    fn fmt_header(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl fmt::Display for RawFsApiHeader {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_char(if self.0 { '1' } else { '0' })
     }
 }
@@ -134,8 +138,8 @@ impl Serialize for RawFileData {
     }
 }
 
-impl Deserialize for RawFileData {
-    fn deserialize<D: Deserializer>(deserializer: D) -> Result<RawFileData, D::Error> {
+impl<'de> Deserialize<'de> for RawFileData {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<RawFileData, D::Error> {
         deserializer.deserialize_struct("RawFileData", RAW_FILE_DATA_FIELDS, RawFileDataVisitor)
     }
 }
@@ -143,43 +147,43 @@ impl Deserialize for RawFileData {
 
 struct RawFileDataVisitor;
 
-impl Visitor for RawFileDataVisitor {
+impl<'de> Visitor<'de> for RawFileDataVisitor {
     type Value = RawFileData;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
         formatter.write_str("struct RawFileData")
     }
 
-    fn visit_seq<V: SeqVisitor>(self, mut seq: V) -> Result<RawFileData, V::Error> {
+    fn visit_seq<V: SeqAccess<'de>>(self, mut seq: V) -> Result<RawFileData, V::Error> {
         Ok(RawFileData {
             mime_type: {
-                let mt: String = try!(try!(seq.visit()).ok_or_else(|| de::Error::invalid_length(0, &self)));
+                let mt: String = try!(try!(seq.next_element()).ok_or_else(|| de::Error::invalid_length(0, &self)));
                 try!(mt.parse()
                     .map_err(|_| de::Error::invalid_value(de::Unexpected::Str(&mt), &"valid MIME type")))
             },
-            name: try!(try!(seq.visit()).ok_or_else(|| de::Error::invalid_length(1, &self))),
+            name: try!(try!(seq.next_element()).ok_or_else(|| de::Error::invalid_length(1, &self))),
             last_modified: {
-                let lm: String = try!(try!(seq.visit()).ok_or_else(|| de::Error::invalid_length(0, &self)));
+                let lm: String = try!(try!(seq.next_element()).ok_or_else(|| de::Error::invalid_length(0, &self)));
                 try!(parse_rfc3339(&lm).map_err(|_| de::Error::invalid_value(de::Unexpected::Str(&lm), &"RRC3339 timestamp")))
             },
-            size: try!(try!(seq.visit()).ok_or_else(|| de::Error::invalid_length(3, &self))),
-            is_file: try!(try!(seq.visit()).ok_or_else(|| de::Error::invalid_length(4, &self))),
+            size: try!(try!(seq.next_element()).ok_or_else(|| de::Error::invalid_length(3, &self))),
+            is_file: try!(try!(seq.next_element()).ok_or_else(|| de::Error::invalid_length(4, &self))),
         })
     }
 
-    fn visit_map<V: MapVisitor>(self, mut map: V) -> Result<RawFileData, V::Error> {
+    fn visit_map<V: MapAccess<'de>>(self, mut map: V) -> Result<RawFileData, V::Error> {
         let mut mime_type = None;
         let mut name = None;
         let mut last_modified = None;
         let mut size = None;
         let mut is_file = None;
-        while let Some(key) = try!(map.visit_key::<String>()) {
+        while let Some(key) = try!(map.next_key::<String>()) {
             match &key[..] {
                 "mime_type" => {
                     if mime_type.is_some() {
                         return Err(de::Error::duplicate_field("mime_type"));
                     }
-                    let nv: String = try!(map.visit_value());
+                    let nv: String = try!(map.next_value());
                     mime_type = Some(try!(nv.parse::<Mime>()
                         .map_err(|_| de::Error::invalid_value(de::Unexpected::Str(&nv), &"valid MIME type"))));
                 }
@@ -187,26 +191,26 @@ impl Visitor for RawFileDataVisitor {
                     if name.is_some() {
                         return Err(de::Error::duplicate_field("name"));
                     }
-                    name = Some(try!(map.visit_value()));
+                    name = Some(try!(map.next_value()));
                 }
                 "last_modified" => {
                     if last_modified.is_some() {
                         return Err(de::Error::duplicate_field("last_modified"));
                     }
-                    let nv: String = try!(map.visit_value());
+                    let nv: String = try!(map.next_value());
                     last_modified = Some(try!(parse_rfc3339(&nv).map_err(|_| de::Error::invalid_value(de::Unexpected::Str(&nv), &"RRC3339 timestamp"))));
                 }
                 "size" => {
                     if size.is_some() {
                         return Err(de::Error::duplicate_field("size"));
                     }
-                    size = Some(try!(map.visit_value()));
+                    size = Some(try!(map.next_value()));
                 }
                 "is_file" => {
                     if is_file.is_some() {
                         return Err(de::Error::duplicate_field("is_file"));
                     }
-                    is_file = Some(try!(map.visit_value()));
+                    is_file = Some(try!(map.next_value()));
                 }
                 key => return Err(de::Error::unknown_field(key, RAW_FILE_DATA_FIELDS)),
             }
