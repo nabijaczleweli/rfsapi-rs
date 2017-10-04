@@ -52,7 +52,7 @@ use time::{self, Tm};
 /// # }
 /// ```
 pub fn parse_rfc3339<S: AsRef<str>>(from: S) -> Result<Tm, time::ParseError> {
-    let utc = from.as_ref().chars().last() == Some('Z');
+    let utc = from.as_ref().ends_with('Z');
     let fractional = from.as_ref().len() > if utc { 20 } else { 25 };
     time::strptime(from.as_ref(),
                    match (utc, fractional) {
