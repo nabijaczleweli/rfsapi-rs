@@ -4,14 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.6/src/header/common/warning.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.25/src/header/common/warning.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>warning.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../../../main.css" id="themeStyle">
+    <script src="../../../../storage.js"></script>
     
 
     
@@ -28,10 +31,18 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
         
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../../../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -220,6 +231,11 @@
 <span id="175">175</span>
 <span id="176">176</span>
 <span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>::{<span class="ident">FromStr</span>};
@@ -234,7 +250,8 @@
 <span class="doccomment">/// compatible way to notify of a deprecated API. </span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # ABNF</span>
-<span class="doccomment">/// ```plain</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```text</span>
 <span class="doccomment">/// Warning       = 1#warning-value</span>
 <span class="doccomment">/// warning-value = warn-code SP warn-agent SP warn-text</span>
 <span class="doccomment">///                                       [ SP warn-date ]</span>
@@ -248,12 +265,14 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example values</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// * `Warning: 112 - &quot;network down&quot; &quot;Sat, 25 Aug 2012 23:34:45 GMT&quot;`</span>
 <span class="doccomment">/// * `Warning: 299 - &quot;Deprecated API &quot; &quot;Tue, 15 Nov 1994 08:12:31 GMT&quot;`</span>
 <span class="doccomment">/// * `Warning: 299 api.hyper.rs:8080 &quot;Deprecated API : use newapi.hyper.rs instead.&quot;`</span>
 <span class="doccomment">/// * `Warning: 299 api.hyper.rs:8080 &quot;Deprecated API : use newapi.hyper.rs instead.&quot; &quot;Tue, 15 Nov 1994 08:12:31 GMT&quot;` </span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use hyper::header::{Headers, Warning};</span>
 <span class="doccomment">///</span>
@@ -267,6 +286,7 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use hyper::header::{Headers, HttpDate, Warning};</span>
 <span class="doccomment">///</span>
@@ -280,6 +300,7 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use std::time::SystemTime;</span>
 <span class="doccomment">/// use hyper::header::{Headers, Warning};</span>
@@ -412,18 +433,22 @@
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

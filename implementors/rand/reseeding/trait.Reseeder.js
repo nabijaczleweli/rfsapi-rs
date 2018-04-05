@@ -1,12 +1,5 @@
 (function() {var implementors = {};
-implementors["bytes"] = [];
-implementors["hyper"] = [];
-implementors["libc"] = [];
-implementors["mio"] = [];
 implementors["rand"] = [];
-implementors["serde"] = [];
-implementors["syn"] = [];
-implementors["tokio_core"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

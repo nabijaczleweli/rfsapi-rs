@@ -1,5 +1,4 @@
 (function() {var implementors = {};
-implementors["hyper"] = [];
 implementors["percent_encoding"] = [];
 
             if (window.register_implementors) {

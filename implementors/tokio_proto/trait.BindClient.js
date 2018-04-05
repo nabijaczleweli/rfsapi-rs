@@ -1,5 +1,4 @@
 (function() {var implementors = {};
-implementors["hyper"] = [];
 implementors["tokio_proto"] = [];
 
             if (window.register_implementors) {
