@@ -30,7 +30,7 @@ script:
   - if [ "$LANGUAGE" == "Rust" ]; then cargo test  --verbose; fi
   -
   - if [ "$LANGUAGE" == "Rust" ] && [ "$CLIPPY" ]; then
-      cargo install -f clippy;
+      rustup component add clippy;
       cargo clippy;
     fi
 
