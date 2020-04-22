@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.27/src/uri.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>uri.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.27/src/uri.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>uri.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../hyper/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -708,7 +708,7 @@
 <span id="708">708</span>
 <span id="709">709</span>
 <span id="710">710</span>
-</pre><pre class="rust ">
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">StdError</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="self">self</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>::{<span class="self">self</span>, <span class="ident">FromStr</span>};
@@ -753,16 +753,16 @@
 
 <span class="kw">impl</span> <span class="ident">Uri</span> {
     <span class="doccomment">/// Parse a string into a `Uri`.</span>
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">s</span>: <span class="ident">ByteStr</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">s</span>: <span class="ident">ByteStr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
             <span class="prelude-val">Err</span>(<span class="ident">UriError</span>(<span class="ident">ErrorKind</span>::<span class="ident">Empty</span>))
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>() <span class="op">==</span> <span class="string">b&quot;*&quot;</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>() <span class="op">=</span><span class="op">=</span> <span class="string">b&quot;*&quot;</span> {
             <span class="comment">// asterisk-form</span>
             <span class="prelude-val">Ok</span>(<span class="ident">asterisk_form</span>())
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>() <span class="op">==</span> <span class="string">b&quot;/&quot;</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>() <span class="op">=</span><span class="op">=</span> <span class="string">b&quot;/&quot;</span> {
             <span class="comment">// shortcut for &#39;/&#39;</span>
             <span class="prelude-val">Ok</span>(<span class="ident">Uri</span>::<span class="ident">default</span>())
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>()[<span class="number">0</span>] <span class="op">==</span> <span class="string">b&#39;/&#39;</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>()[<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="string">b&#39;/&#39;</span> {
             <span class="comment">// origin-form</span>
             <span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">parse_query</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>);
             <span class="kw">let</span> <span class="ident">fragment</span> <span class="op">=</span> <span class="ident">parse_fragment</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>);
@@ -779,7 +779,7 @@
             <span class="kw">let</span> <span class="ident">auth</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">parse_authority</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>));
             <span class="kw">let</span> <span class="ident">scheme_end</span> <span class="op">=</span> <span class="ident">scheme</span>.<span class="ident">expect</span>(<span class="string">&quot;just checked for &#39;:&#39; above&quot;</span>);
             <span class="kw">let</span> <span class="ident">auth_end</span> <span class="op">=</span> <span class="ident">auth</span>.<span class="ident">expect</span>(<span class="string">&quot;just checked for ://&quot;</span>);
-            <span class="kw">if</span> <span class="ident">scheme_end</span> <span class="op">+</span> <span class="number">3</span> <span class="op">==</span> <span class="ident">auth_end</span> {
+            <span class="kw">if</span> <span class="ident">scheme_end</span> <span class="op">+</span> <span class="number">3</span> <span class="op">=</span><span class="op">=</span> <span class="ident">auth_end</span> {
                 <span class="comment">// authority was empty</span>
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UriError</span>(<span class="ident">ErrorKind</span>::<span class="ident">MissingAuthority</span>));
             }
@@ -796,9 +796,9 @@
             <span class="comment">// absolute-form must always have a path</span>
             <span class="comment">// if there isn&#39;t a &#39;/&#39;, for consistency, add one.</span>
             <span class="kw">let</span> <span class="ident">slash</span> <span class="op">=</span> <span class="ident">auth_end</span>;
-            <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">slash</span> {
+            <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">slash</span> {
                 <span class="ident">s</span>.<span class="ident">insert</span>(<span class="ident">slash</span>, <span class="string">&#39;/&#39;</span>);
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>()[<span class="ident">slash</span>] <span class="op">!=</span> <span class="string">b&#39;/&#39;</span> {
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">as_bytes</span>()[<span class="ident">slash</span>] <span class="op">!</span><span class="op">=</span> <span class="string">b&#39;/&#39;</span> {
                 <span class="ident">s</span>.<span class="ident">insert</span>(<span class="ident">slash</span>, <span class="string">&#39;/&#39;</span>);
             }
 
@@ -812,7 +812,7 @@
                 <span class="ident">query_start</span>: <span class="ident">query</span>,
                 <span class="ident">fragment_start</span>: <span class="ident">fragment</span>,
             })
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">contains</span>(<span class="string">&quot;/&quot;</span>) <span class="op">||</span> <span class="ident">s</span>.<span class="ident">contains</span>(<span class="string">&quot;?&quot;</span>) {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">contains</span>(<span class="string">&quot;/&quot;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">contains</span>(<span class="string">&quot;?&quot;</span>) {
             <span class="comment">// last possibility is authority-form, above are illegal characters</span>
             <span class="prelude-val">Err</span>(<span class="ident">UriError</span>(<span class="ident">ErrorKind</span>::<span class="ident">Malformed</span>))
         } <span class="kw">else</span> {
@@ -830,10 +830,10 @@
 
     <span class="doccomment">/// Get the path of this `Uri`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">path_start</span>();
         <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">path_end</span>();
-        <span class="kw">if</span> <span class="ident">index</span> <span class="op">&gt;=</span> <span class="ident">end</span> {
+        <span class="kw">if</span> <span class="ident">index</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">end</span> {
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">scheme</span>().<span class="ident">is_some</span>() {
                 <span class="string">&quot;/&quot;</span> <span class="comment">// absolute-form MUST have path</span>
             } <span class="kw">else</span> {
@@ -845,12 +845,12 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">path_start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">fn</span> <span class="ident">path_start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="self">self</span>.<span class="ident">authority_end</span>.<span class="ident">unwrap_or</span>(<span class="self">self</span>.<span class="ident">scheme_end</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">path_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">fn</span> <span class="ident">path_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">query</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">query_start</span> {
             <span class="ident">query</span>
         } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">fragment</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fragment_start</span> {
@@ -861,7 +861,7 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">origin_form_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">fn</span> <span class="ident">origin_form_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">fragment</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fragment_start</span> {
             <span class="ident">fragment</span>
         } <span class="kw">else</span> {
@@ -871,7 +871,7 @@
 
     <span class="doccomment">/// Get the scheme of this `Uri`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">end</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">scheme_end</span> {
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">source</span>[..<span class="ident">end</span>])
         } <span class="kw">else</span> {
@@ -881,7 +881,7 @@
 
     <span class="doccomment">/// Get the authority of this `Uri`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">end</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">authority_end</span> {
             <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">scheme_end</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">i</span> <span class="op">+</span> <span class="number">3</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>);
 
@@ -893,12 +893,12 @@
 
     <span class="doccomment">/// Get the host of this `Uri`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">host</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">host</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">authority</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">auth</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">host_port</span> <span class="op">=</span> <span class="ident">auth</span>.<span class="ident">rsplit</span>(<span class="string">&#39;@&#39;</span>)
                 .<span class="ident">next</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;split always has at least 1 item&quot;</span>);
-            <span class="kw">if</span> <span class="ident">host_port</span>.<span class="ident">as_bytes</span>()[<span class="number">0</span>] <span class="op">==</span> <span class="string">b&#39;[&#39;</span> {
+            <span class="kw">if</span> <span class="ident">host_port</span>.<span class="ident">as_bytes</span>()[<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="string">b&#39;[&#39;</span> {
                 <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="ident">host_port</span>.<span class="ident">find</span>(<span class="string">&#39;]&#39;</span>)
                     .<span class="ident">expect</span>(<span class="string">&quot;parsing should validate matching brackets&quot;</span>);
                 <span class="kw-2">&amp;</span><span class="ident">host_port</span>[<span class="number">1</span>..<span class="ident">i</span>]
@@ -912,16 +912,16 @@
 
     <span class="doccomment">/// Get the port of this `Uri`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">port</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u16</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">port</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u16</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">authority</span>() {
-            <span class="prelude-val">Some</span>(<span class="ident">auth</span>) <span class="op">=&gt;</span> <span class="ident">auth</span>.<span class="ident">rfind</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">auth</span>[<span class="ident">i</span><span class="op">+</span><span class="number">1</span>..].<span class="ident">parse</span>().<span class="ident">ok</span>()),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="prelude-val">Some</span>(<span class="ident">auth</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">auth</span>.<span class="ident">rfind</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">auth</span>[<span class="ident">i</span><span class="op">+</span><span class="number">1</span>..].<span class="ident">parse</span>().<span class="ident">ok</span>()),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
        }
     }
 
     <span class="doccomment">/// Get the query string of this `Uri`, starting after the `?`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">query_start</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">start</span><span class="op">|</span> {
             <span class="comment">// +1 to remove &#39;?&#39;</span>
             <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">start</span> <span class="op">+</span> <span class="number">1</span>;
@@ -937,12 +937,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example of absolute form is `https://hyper.rs`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_absolute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_absolute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">scheme_end</span>.<span class="ident">is_some</span>()
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">fragment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">fragment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">fragment_start</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">start</span><span class="op">|</span> {
             <span class="comment">// +1 to remove the &#39;#&#39;</span>
            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">source</span>[<span class="ident">start</span> <span class="op">+</span> <span class="number">1</span>..]
@@ -950,19 +950,19 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">parse_scheme</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_scheme</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
     <span class="ident">s</span>.<span class="ident">find</span>(<span class="string">&#39;:&#39;</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">parse_authority</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+<span class="kw">fn</span> <span class="ident">parse_authority</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
     <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">find</span>(<span class="string">&quot;://&quot;</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">+</span> <span class="number">3</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>);
     <span class="ident">s</span>[<span class="ident">i</span>..]
-        .<span class="ident">find</span>(<span class="op">|</span><span class="ident">ch</span><span class="op">|</span> <span class="ident">ch</span> <span class="op">==</span> <span class="string">&#39;/&#39;</span> <span class="op">||</span> <span class="ident">ch</span> <span class="op">==</span> <span class="string">&#39;?&#39;</span> <span class="op">||</span> <span class="ident">ch</span> <span class="op">==</span> <span class="string">&#39;#&#39;</span>)
+        .<span class="ident">find</span>(<span class="op">|</span><span class="ident">ch</span><span class="op">|</span> <span class="ident">ch</span> <span class="op">=</span><span class="op">=</span> <span class="string">&#39;/&#39;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ch</span> <span class="op">=</span><span class="op">=</span> <span class="string">&#39;?&#39;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ch</span> <span class="op">=</span><span class="op">=</span> <span class="string">&#39;#&#39;</span>)
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">end</span><span class="op">|</span> <span class="ident">end</span> <span class="op">+</span> <span class="ident">i</span>)
         .<span class="ident">unwrap_or</span>(<span class="ident">s</span>.<span class="ident">len</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">parse_query</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_query</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
     <span class="ident">s</span>.<span class="ident">find</span>(<span class="string">&#39;?&#39;</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">frag</span>) <span class="op">=</span> <span class="ident">s</span>.<span class="ident">find</span>(<span class="string">&#39;#&#39;</span>) {
             <span class="kw">if</span> <span class="ident">frag</span> <span class="op">&lt;</span> <span class="ident">i</span> {
@@ -976,14 +976,14 @@
     })
 }
 
-<span class="kw">fn</span> <span class="ident">parse_fragment</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">parse_fragment</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
     <span class="ident">s</span>.<span class="ident">find</span>(<span class="string">&#39;#&#39;</span>)
 }
 
 <span class="kw">impl</span> <span class="ident">FromStr</span> <span class="kw">for</span> <span class="ident">Uri</span> {
     <span class="kw">type</span> <span class="prelude-val">Err</span> <span class="op">=</span> <span class="ident">UriError</span>;
 
-    <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
         <span class="comment">//TODO: refactor such that the to_owned() is only required at the end</span>
         <span class="comment">//of successful parsing, so an Err doesn&#39;t needlessly clone the string.</span>
         <span class="ident">Uri</span>::<span class="ident">new</span>(<span class="ident">ByteStr</span>::<span class="ident">from</span>(<span class="ident">s</span>))
@@ -991,40 +991,40 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">==</span> <span class="ident">other</span>.<span class="ident">source</span>.<span class="ident">as_str</span>()
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">source</span>.<span class="ident">as_str</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">==</span> <span class="ident">other</span>
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>
     }
 }
 
 <span class="comment">// FIXME delete for 0.12</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="op">&amp;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">==</span> <span class="kw-2">*</span><span class="ident">other</span>
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="op">&amp;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">other</span>
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">Uri</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>{
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="kw-2">*</span><span class="self">self</span> <span class="op">==</span> <span class="ident">other</span>.<span class="ident">source</span>.<span class="ident">as_str</span>()
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="kw-2">*</span><span class="self">self</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">source</span>.<span class="ident">as_str</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">Uri</span> {}
 
 <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">as_str</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">Uri</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
         <span class="ident">Uri</span> {
             <span class="ident">source</span>: <span class="ident">ByteStr</span>::<span class="ident">from_static</span>(<span class="string">&quot;/&quot;</span>),
             <span class="ident">scheme_end</span>: <span class="prelude-val">None</span>,
@@ -1036,20 +1036,20 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">fmt</span>::<span class="ident">Debug</span>::<span class="ident">fmt</span>(<span class="self">self</span>.<span class="ident">as_ref</span>(), <span class="ident">f</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="self">self</span>.<span class="ident">as_ref</span>())
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">http</span>::<span class="ident">Uri</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">uri</span>: <span class="ident">http</span>::<span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="ident">Uri</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">uri</span>: <span class="ident">http</span>::<span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
         <span class="ident">uri</span>.<span class="ident">to_string</span>().<span class="ident">parse</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;attempted to convert invalid uri&quot;</span>)
     }
@@ -1057,18 +1057,18 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Uri</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">http</span>::<span class="ident">Uri</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">uri</span>: <span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="ident">http</span>::<span class="ident">Uri</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">uri</span>: <span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">http</span>::<span class="ident">Uri</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">into_bytes</span>();
         <span class="ident">http</span>::<span class="ident">Uri</span>::<span class="ident">from_shared</span>(<span class="ident">bytes</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;attempted to convert invalid uri&quot;</span>)
     }
 }
 
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_utf8_unchecked</span>(<span class="ident">slice</span>: <span class="ident">Bytes</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_utf8_unchecked</span>(<span class="ident">slice</span>: <span class="ident">Bytes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="ident">UriError</span><span class="op">&gt;</span> {
     <span class="ident">Uri</span>::<span class="ident">new</span>(<span class="ident">ByteStr</span>::<span class="ident">from_utf8_unchecked</span>(<span class="ident">slice</span>))
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scheme_and_authority</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uri</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scheme_and_authority</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uri</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">uri</span>.<span class="ident">scheme_end</span>.<span class="ident">is_some</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">Uri</span> {
             <span class="ident">source</span>: <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">slice_to</span>(<span class="ident">uri</span>.<span class="ident">authority_end</span>.<span class="ident">expect</span>(<span class="string">&quot;scheme without authority&quot;</span>)),
@@ -1083,7 +1083,7 @@
 }
 
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">fn</span> <span class="ident">asterisk_form</span>() <span class="op">-&gt;</span> <span class="ident">Uri</span> {
+<span class="kw">fn</span> <span class="ident">asterisk_form</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
     <span class="ident">Uri</span> {
         <span class="ident">source</span>: <span class="ident">ByteStr</span>::<span class="ident">from_static</span>(<span class="string">&quot;*&quot;</span>),
         <span class="ident">scheme_end</span>: <span class="prelude-val">None</span>,
@@ -1093,20 +1093,20 @@
     }
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">origin_form</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-&gt;</span> <span class="ident">Uri</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">origin_form</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">Uri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
     <span class="kw">let</span> <span class="ident">range</span> <span class="op">=</span> <span class="ident">Range</span>(<span class="ident">uri</span>.<span class="ident">path_start</span>(), <span class="ident">uri</span>.<span class="ident">origin_form_end</span>());
 
-    <span class="kw">let</span> <span class="ident">clone</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">range</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
+    <span class="kw">let</span> <span class="ident">clone</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">range</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
         <span class="ident">ByteStr</span>::<span class="ident">from_static</span>(<span class="string">&quot;/&quot;</span>)
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">as_bytes</span>()[<span class="ident">range</span>.<span class="number">0</span>] <span class="op">==</span> <span class="string">b&#39;*&#39;</span> {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">as_bytes</span>()[<span class="ident">range</span>.<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="string">b&#39;*&#39;</span> {
         <span class="kw">return</span> <span class="ident">asterisk_form</span>();
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">as_bytes</span>()[<span class="ident">range</span>.<span class="number">0</span>] <span class="op">!=</span> <span class="string">b&#39;/&#39;</span> {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">as_bytes</span>()[<span class="ident">range</span>.<span class="number">0</span>] <span class="op">!</span><span class="op">=</span> <span class="string">b&#39;/&#39;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new</span> <span class="op">=</span> <span class="ident">BytesMut</span>::<span class="ident">with_capacity</span>(<span class="ident">range</span>.<span class="number">1</span> <span class="op">-</span> <span class="ident">range</span>.<span class="number">0</span> <span class="op">+</span> <span class="number">1</span>);
         <span class="ident">new</span>.<span class="ident">put_u8</span>(<span class="string">b&#39;/&#39;</span>);
         <span class="ident">new</span>.<span class="ident">put_slice</span>(<span class="kw-2">&amp;</span><span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">as_bytes</span>()[<span class="ident">range</span>.<span class="number">0</span>..<span class="ident">range</span>.<span class="number">1</span>]);
         <span class="comment">// safety: the bytes are &#39;/&#39; + previous utf8 str</span>
         <span class="kw">unsafe</span> { <span class="ident">ByteStr</span>::<span class="ident">from_utf8_unchecked</span>(<span class="ident">new</span>.<span class="ident">freeze</span>()) }
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">range</span>.<span class="number">0</span> <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">range</span>.<span class="number">1</span> <span class="op">==</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">len</span>() {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">range</span>.<span class="number">0</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">range</span>.<span class="number">1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">len</span>() {
         <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">clone</span>()
     } <span class="kw">else</span> {
         <span class="ident">uri</span>.<span class="ident">source</span>.<span class="ident">slice</span>(<span class="ident">range</span>.<span class="number">0</span>, <span class="ident">range</span>.<span class="number">1</span>)
@@ -1124,7 +1124,7 @@
 <span class="kw">struct</span> <span class="ident">Range</span>(<span class="ident">usize</span>, <span class="ident">usize</span>);
 
 <span class="kw">impl</span> <span class="ident">Range</span> {
-    <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="self">self</span>.<span class="number">1</span> <span class="op">-</span> <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -1141,17 +1141,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UriError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">pad</span>(<span class="self">self</span>.<span class="ident">description</span>())
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StdError</span> <span class="kw">for</span> <span class="ident">UriError</span> {
-    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span> {
-            <span class="ident">ErrorKind</span>::<span class="ident">Empty</span> <span class="op">=&gt;</span> <span class="string">&quot;empty Uri string&quot;</span>,
-            <span class="ident">ErrorKind</span>::<span class="ident">Malformed</span> <span class="op">=&gt;</span> <span class="string">&quot;invalid character in Uri authority&quot;</span>,
-            <span class="ident">ErrorKind</span>::<span class="ident">MissingAuthority</span> <span class="op">=&gt;</span> <span class="string">&quot;absolute Uri missing authority segment&quot;</span>,
+            <span class="ident">ErrorKind</span>::<span class="ident">Empty</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;empty Uri string&quot;</span>,
+            <span class="ident">ErrorKind</span>::<span class="ident">Malformed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;invalid character in Uri authority&quot;</span>,
+            <span class="ident">ErrorKind</span>::<span class="ident">MissingAuthority</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;absolute Uri missing authority segment&quot;</span>,
         }
     }
 }
@@ -1161,7 +1161,7 @@
         <span class="macro-nonterminal">$</span><span class="macro-nonterminal">test_name</span>:<span class="ident">ident</span>,
         <span class="macro-nonterminal">$</span><span class="macro-nonterminal">str</span>:<span class="ident">expr</span>,
         $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span>:<span class="ident">ident</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>,)<span class="op">*</span>
-    ) <span class="op">=&gt;</span> (
+    ) <span class="op">=</span><span class="op">&gt;</span> (
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">test_name</span>() {
             <span class="kw">let</span> <span class="ident">uri</span> <span class="op">=</span> <span class="ident">Uri</span>::<span class="ident">from_str</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">str</span>).<span class="ident">unwrap</span>();
@@ -1419,5 +1419,5 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">origin_form</span>(<span class="kw-2">&amp;</span><span class="ident">uri</span>), <span class="ident">case</span>.<span class="number">1</span>); <span class="comment">//, &quot;{:?}&quot;, case);</span>
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "hyper";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "hyper";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/base64-0.9.3/src/decode.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decode.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/base64-0.9.3/src/decode.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decode.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../base64/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -708,7 +708,7 @@
 <span id="708">708</span>
 <span id="709">709</span>
 <span id="710">710</span>
-</pre><pre class="rust ">
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">byteorder</span>::{<span class="ident">BigEndian</span>, <span class="ident">ByteOrder</span>};
 <span class="kw">use</span> {<span class="ident">tables</span>, <span class="ident">CharacterSet</span>, <span class="ident">Config</span>, <span class="ident">STANDARD</span>};
 
@@ -739,25 +739,25 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DecodeError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="ident">index</span>, <span class="ident">byte</span>) <span class="op">=&gt;</span> {
+            <span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="ident">index</span>, <span class="ident">byte</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid byte {}, offset {}.&quot;</span>, <span class="ident">byte</span>, <span class="ident">index</span>)
             }
-            <span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span> <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Encoded text cannot have a 6-bit remainder.&quot;</span>),
+            <span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Encoded text cannot have a 6-bit remainder.&quot;</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">DecodeError</span> {
-    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="string">&quot;invalid byte&quot;</span>,
-            <span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span> <span class="op">=&gt;</span> <span class="string">&quot;invalid length&quot;</span>,
+            <span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;invalid byte&quot;</span>,
+            <span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;invalid length&quot;</span>,
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">None</span>
     }
 }
@@ -776,7 +776,7 @@
 <span class="doccomment">///    println!(&quot;{:?}&quot;, bytes);</span>
 <span class="doccomment">///}</span>
 <span class="doccomment">///```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="ident">decode_config</span>(<span class="ident">input</span>, <span class="ident">STANDARD</span>)
 }
 
@@ -796,10 +796,10 @@
 <span class="doccomment">///    println!(&quot;{:?}&quot;, bytes_url);</span>
 <span class="doccomment">///}</span>
 <span class="doccomment">///```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
     <span class="ident">config</span>: <span class="ident">Config</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>::<span class="ident">with_capacity</span>(<span class="ident">input</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>() <span class="op">*</span> <span class="number">4</span> <span class="op">/</span> <span class="number">3</span>);
 
     <span class="ident">decode_config_buf</span>(<span class="ident">input</span>, <span class="ident">config</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buffer</span>).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">buffer</span>)
@@ -826,11 +826,11 @@
 <span class="doccomment">///    println!(&quot;{:?}&quot;, buffer);</span>
 <span class="doccomment">///}</span>
 <span class="doccomment">///```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config_buf</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config_buf</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
     <span class="ident">config</span>: <span class="ident">Config</span>,
     <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">input_copy</span>;
     <span class="kw">let</span> <span class="ident">input_bytes</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">strip_whitespace</span> {
         <span class="ident">input_copy</span> <span class="op">=</span> <span class="ident">copy_without_whitespace</span>(<span class="ident">input</span>.<span class="ident">as_ref</span>());
@@ -868,11 +868,11 @@
 <span class="doccomment">/// input, rounded up, or in other words `(input_len + 3) / 4 * 3`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If the slice is not large enough, this will panic.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config_slice</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_config_slice</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
     <span class="ident">config</span>: <span class="ident">Config</span>,
     <span class="ident">output</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">input_copy</span>;
     <span class="kw">let</span> <span class="ident">input_bytes</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">strip_whitespace</span> {
         <span class="ident">input_copy</span> <span class="op">=</span> <span class="ident">copy_without_whitespace</span>(<span class="ident">input</span>.<span class="ident">as_ref</span>());
@@ -890,14 +890,14 @@
 }
 
 <span class="doccomment">/// Return the number of input chunks (including a possibly partial final chunk) in the input</span>
-<span class="kw">fn</span> <span class="ident">num_chunks</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+<span class="kw">fn</span> <span class="ident">num_chunks</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
     <span class="ident">input</span>
         .<span class="ident">len</span>()
         .<span class="ident">checked_add</span>(<span class="ident">INPUT_CHUNK_LEN</span> <span class="op">-</span> <span class="number">1</span>)
         .<span class="ident">expect</span>(<span class="string">&quot;Overflow when calculating number of chunks in input&quot;</span>) <span class="op">/</span> <span class="ident">INPUT_CHUNK_LEN</span>
 }
 
-<span class="kw">fn</span> <span class="ident">copy_without_whitespace</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">copy_without_whitespace</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input_copy</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>::<span class="ident">with_capacity</span>(<span class="ident">input</span>.<span class="ident">len</span>());
     <span class="ident">input_copy</span>.<span class="ident">extend</span>(<span class="ident">input</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="op">!</span><span class="string">b&quot; \n\t\r\x0b\x0c&quot;</span>.<span class="ident">contains</span>(<span class="ident">b</span>)));
 
@@ -915,7 +915,7 @@
     <span class="ident">num_chunks</span>: <span class="ident">usize</span>,
     <span class="ident">char_set</span>: <span class="kw-2">&amp;</span><span class="ident">CharacterSet</span>,
     <span class="ident">output</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">decode_table</span> <span class="op">=</span> <span class="ident">char_set</span>.<span class="ident">decode_table</span>();
 
     <span class="kw">let</span> <span class="ident">remainder_len</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">len</span>() <span class="op">%</span> <span class="ident">INPUT_CHUNK_LEN</span>;
@@ -927,24 +927,24 @@
     <span class="kw">let</span> <span class="ident">trailing_bytes_to_skip</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">remainder_len</span> {
         <span class="comment">// if input is a multiple of the chunk size, ignore the last chunk as it may have padding,</span>
         <span class="comment">// and the fast decode logic cannot handle padding</span>
-        <span class="number">0</span> <span class="op">=&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span>,
+        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span>,
         <span class="comment">// 1 and 5 trailing bytes are illegal: can&#39;t decode 6 bits of input into a byte</span>
-        <span class="number">1</span> <span class="op">|</span> <span class="number">5</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span>),
+        <span class="number">1</span> <span class="op">|</span> <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidLength</span>),
         <span class="comment">// This will decode to one output byte, which isn&#39;t enough to overwrite the 2 extra bytes</span>
         <span class="comment">// written by the fast decode loop. So, we have to ignore both these 2 bytes and the</span>
         <span class="comment">// previous chunk.</span>
-        <span class="number">2</span> <span class="op">=&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">2</span>,
+        <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">2</span>,
         <span class="comment">// If this is 3 unpadded chars, then it would actually decode to 2 bytes. However, if this</span>
         <span class="comment">// is an erroneous 2 chars + 1 pad char that would decode to 1 byte, then it should fail</span>
         <span class="comment">// with an error, not panic from going past the bounds of the output slice, so we let it</span>
         <span class="comment">// use stage 3 + 4.</span>
-        <span class="number">3</span> <span class="op">=&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">3</span>,
+        <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">3</span>,
         <span class="comment">// This can also decode to one output byte because it may be 2 input chars + 2 padding</span>
         <span class="comment">// chars, which would decode to 1 byte.</span>
-        <span class="number">4</span> <span class="op">=&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">4</span>,
+        <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">INPUT_CHUNK_LEN</span> <span class="op">+</span> <span class="number">4</span>,
         <span class="comment">// Everything else is a legal decode len (given that we don&#39;t require padding), and will</span>
         <span class="comment">// decode to at least 2 bytes of output.</span>
-        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">remainder_len</span>,
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">remainder_len</span>,
     };
 
     <span class="comment">// rounded up to include partial chunks</span>
@@ -959,7 +959,7 @@
         <span class="comment">// Fast loop, stage 1</span>
         <span class="comment">// manual unroll to CHUNKS_PER_FAST_LOOP_BLOCK of u64s to amortize slice bounds checks</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_start_index</span>) <span class="op">=</span> <span class="ident">length_of_fast_decode_chunks</span>.<span class="ident">checked_sub</span>(<span class="ident">INPUT_BLOCK_LEN</span>) {
-            <span class="kw">while</span> <span class="ident">input_index</span> <span class="op">&lt;=</span> <span class="ident">max_start_index</span> {
+            <span class="kw">while</span> <span class="ident">input_index</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">max_start_index</span> {
                 <span class="kw">let</span> <span class="ident">input_slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="ident">input_index</span>..(<span class="ident">input_index</span> <span class="op">+</span> <span class="ident">INPUT_BLOCK_LEN</span>)];
                 <span class="kw">let</span> <span class="ident">output_slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output</span>[<span class="ident">output_index</span>..(<span class="ident">output_index</span> <span class="op">+</span> <span class="ident">DECODED_BLOCK_LEN</span>)];
 
@@ -988,9 +988,9 @@
                     <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output_slice</span>[<span class="number">18</span>..],
                 )<span class="question-mark">?</span>;
 
-                <span class="ident">input_index</span> <span class="op">+=</span> <span class="ident">INPUT_BLOCK_LEN</span>;
-                <span class="ident">output_index</span> <span class="op">+=</span> <span class="ident">DECODED_BLOCK_LEN</span> <span class="op">-</span> <span class="ident">DECODED_CHUNK_SUFFIX</span>;
-                <span class="ident">remaining_chunks</span> <span class="op">-=</span> <span class="ident">CHUNKS_PER_FAST_LOOP_BLOCK</span>;
+                <span class="ident">input_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">INPUT_BLOCK_LEN</span>;
+                <span class="ident">output_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">DECODED_BLOCK_LEN</span> <span class="op">-</span> <span class="ident">DECODED_CHUNK_SUFFIX</span>;
+                <span class="ident">remaining_chunks</span> <span class="op">-</span><span class="op">=</span> <span class="ident">CHUNKS_PER_FAST_LOOP_BLOCK</span>;
             }
         }
 
@@ -1006,9 +1006,9 @@
                         [<span class="ident">output_index</span>..(<span class="ident">output_index</span> <span class="op">+</span> <span class="ident">DECODED_CHUNK_LEN</span> <span class="op">+</span> <span class="ident">DECODED_CHUNK_SUFFIX</span>)],
                 )<span class="question-mark">?</span>;
 
-                <span class="ident">output_index</span> <span class="op">+=</span> <span class="ident">DECODED_CHUNK_LEN</span>;
-                <span class="ident">input_index</span> <span class="op">+=</span> <span class="ident">INPUT_CHUNK_LEN</span>;
-                <span class="ident">remaining_chunks</span> <span class="op">-=</span> <span class="number">1</span>;
+                <span class="ident">output_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">DECODED_CHUNK_LEN</span>;
+                <span class="ident">input_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">INPUT_CHUNK_LEN</span>;
+                <span class="ident">remaining_chunks</span> <span class="op">-</span><span class="op">=</span> <span class="number">1</span>;
             }
         }
     }
@@ -1028,8 +1028,8 @@
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output</span>[<span class="ident">output_index</span>..(<span class="ident">output_index</span> <span class="op">+</span> <span class="ident">DECODED_CHUNK_LEN</span>)],
         )<span class="question-mark">?</span>;
 
-        <span class="ident">input_index</span> <span class="op">+=</span> <span class="ident">INPUT_CHUNK_LEN</span>;
-        <span class="ident">output_index</span> <span class="op">+=</span> <span class="ident">DECODED_CHUNK_LEN</span>;
+        <span class="ident">input_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">INPUT_CHUNK_LEN</span>;
+        <span class="ident">output_index</span> <span class="op">+</span><span class="op">=</span> <span class="ident">DECODED_CHUNK_LEN</span>;
     }
 
     <span class="comment">// Stage 4</span>
@@ -1042,7 +1042,7 @@
     <span class="kw">let</span> <span class="ident">start_of_leftovers</span> <span class="op">=</span> <span class="ident">input_index</span>;
     <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">b</span>) <span class="kw">in</span> <span class="ident">input</span>[<span class="ident">start_of_leftovers</span>..].<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
         <span class="comment">// &#39;=&#39; padding</span>
-        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">b</span> <span class="op">==</span> <span class="number">0x3D</span> {
+        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">b</span> <span class="op">=</span><span class="op">=</span> <span class="number">0x3D</span> {
             <span class="comment">// There can be bad padding in a few ways:</span>
             <span class="comment">// 1 - Padding with non-padding characters after it</span>
             <span class="comment">// 2 - Padding after zero or one non-padding characters before it</span>
@@ -1067,11 +1067,11 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="ident">bad_padding_index</span>, <span class="kw-2">*</span><span class="ident">b</span>));
             }
 
-            <span class="kw">if</span> <span class="ident">padding_bytes</span> <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">if</span> <span class="ident">padding_bytes</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                 <span class="ident">first_padding_index</span> <span class="op">=</span> <span class="ident">i</span>;
             }
 
-            <span class="ident">padding_bytes</span> <span class="op">+=</span> <span class="number">1</span>;
+            <span class="ident">padding_bytes</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             <span class="kw">continue</span>;
         }
 
@@ -1091,23 +1091,23 @@
         <span class="kw">let</span> <span class="ident">shift</span> <span class="op">=</span> <span class="number">64</span> <span class="op">-</span> (<span class="ident">morsels_in_leftover</span> <span class="op">+</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">6</span>;
         <span class="comment">// tables are all 256 elements, lookup with a u8 index always succeeds</span>
         <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="kw-2">*</span><span class="ident">b</span> <span class="kw">as</span> <span class="ident">usize</span>];
-        <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+        <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="ident">start_of_leftovers</span> <span class="op">+</span> <span class="ident">i</span>, <span class="kw-2">*</span><span class="ident">b</span>));
         }
 
-        <span class="ident">leftover_bits</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="ident">shift</span>;
-        <span class="ident">morsels_in_leftover</span> <span class="op">+=</span> <span class="number">1</span>;
+        <span class="ident">leftover_bits</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">shift</span>;
+        <span class="ident">morsels_in_leftover</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
     }
 
     <span class="kw">let</span> <span class="ident">leftover_bits_ready_to_append</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">morsels_in_leftover</span> {
-        <span class="number">0</span> <span class="op">=&gt;</span> <span class="number">0</span>,
-        <span class="number">2</span> <span class="op">=&gt;</span> <span class="number">8</span>,
-        <span class="number">3</span> <span class="op">=&gt;</span> <span class="number">16</span>,
-        <span class="number">4</span> <span class="op">=&gt;</span> <span class="number">24</span>,
-        <span class="number">6</span> <span class="op">=&gt;</span> <span class="number">32</span>,
-        <span class="number">7</span> <span class="op">=&gt;</span> <span class="number">40</span>,
-        <span class="number">8</span> <span class="op">=&gt;</span> <span class="number">48</span>,
-        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(
+        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+        <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">8</span>,
+        <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">16</span>,
+        <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">24</span>,
+        <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">32</span>,
+        <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40</span>,
+        <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">48</span>,
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(
             <span class="string">&quot;Impossible: must only have 0 to 8 input bytes in last chunk, with no invalid lengths&quot;</span>
         ),
     };
@@ -1115,11 +1115,11 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">leftover_bits_appended_to_buf</span> <span class="op">=</span> <span class="number">0</span>;
     <span class="kw">while</span> <span class="ident">leftover_bits_appended_to_buf</span> <span class="op">&lt;</span> <span class="ident">leftover_bits_ready_to_append</span> {
         <span class="comment">// `as` simply truncates the higher bits, which is what we want here</span>
-        <span class="kw">let</span> <span class="ident">selected_bits</span> <span class="op">=</span> (<span class="ident">leftover_bits</span> <span class="op">&gt;&gt;</span> (<span class="number">56</span> <span class="op">-</span> <span class="ident">leftover_bits_appended_to_buf</span>)) <span class="kw">as</span> <span class="ident">u8</span>;
+        <span class="kw">let</span> <span class="ident">selected_bits</span> <span class="op">=</span> (<span class="ident">leftover_bits</span> <span class="op">&gt;</span><span class="op">&gt;</span> (<span class="number">56</span> <span class="op">-</span> <span class="ident">leftover_bits_appended_to_buf</span>)) <span class="kw">as</span> <span class="ident">u8</span>;
         <span class="ident">output</span>[<span class="ident">output_index</span>] <span class="op">=</span> <span class="ident">selected_bits</span>;
-        <span class="ident">output_index</span> <span class="op">+=</span> <span class="number">1</span>;
+        <span class="ident">output_index</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 
-        <span class="ident">leftover_bits_appended_to_buf</span> <span class="op">+=</span> <span class="number">8</span>;
+        <span class="ident">leftover_bits_appended_to_buf</span> <span class="op">+</span><span class="op">=</span> <span class="number">8</span>;
     }
 
     <span class="prelude-val">Ok</span>(<span class="ident">output_index</span>)
@@ -1141,77 +1141,77 @@
     <span class="ident">index_at_start_of_input</span>: <span class="ident">usize</span>,
     <span class="ident">decode_table</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">256</span>],
     <span class="ident">output</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">accum</span>: <span class="ident">u64</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">0</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(<span class="ident">index_at_start_of_input</span>, <span class="ident">input</span>[<span class="number">0</span>]));
     }
-    <span class="ident">accum</span> <span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">58</span>;
+    <span class="ident">accum</span> <span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">58</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">1</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">1</span>,
             <span class="ident">input</span>[<span class="number">1</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">52</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">52</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">2</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">2</span>,
             <span class="ident">input</span>[<span class="number">2</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">46</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">46</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">3</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">3</span>,
             <span class="ident">input</span>[<span class="number">3</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">40</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">40</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">4</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">4</span>,
             <span class="ident">input</span>[<span class="number">4</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">34</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">34</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">5</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">5</span>,
             <span class="ident">input</span>[<span class="number">5</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">28</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">28</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">6</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">6</span>,
             <span class="ident">input</span>[<span class="number">6</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">22</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">22</span>;
 
     <span class="kw">let</span> <span class="ident">morsel</span> <span class="op">=</span> <span class="ident">decode_table</span>[<span class="ident">input</span>[<span class="number">7</span>] <span class="kw">as</span> <span class="ident">usize</span>];
-    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">==</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
+    <span class="kw">if</span> <span class="ident">morsel</span> <span class="op">=</span><span class="op">=</span> <span class="ident">tables</span>::<span class="ident">INVALID_VALUE</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DecodeError</span>::<span class="ident">InvalidByte</span>(
             <span class="ident">index_at_start_of_input</span> <span class="op">+</span> <span class="number">7</span>,
             <span class="ident">input</span>[<span class="number">7</span>],
         ));
     }
-    <span class="ident">accum</span> <span class="op">|=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="number">16</span>;
+    <span class="ident">accum</span> <span class="op">|</span><span class="op">=</span> (<span class="ident">morsel</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">16</span>;
 
     <span class="ident">BigEndian</span>::<span class="ident">write_u64</span>(<span class="ident">output</span>, <span class="ident">accum</span>);
 
@@ -1226,7 +1226,7 @@
     <span class="ident">index_at_start_of_input</span>: <span class="ident">usize</span>,
     <span class="ident">decode_table</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">256</span>],
     <span class="ident">output</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DecodeError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tmp_buf</span> <span class="op">=</span> [<span class="number">0_u8</span>; <span class="number">8</span>];
 
     <span class="ident">decode_chunk</span>(
@@ -1419,5 +1419,5 @@
         }
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "base64";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "base64";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

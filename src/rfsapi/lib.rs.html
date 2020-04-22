@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rfsapi/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -225,11 +225,331 @@
 <span id="225">225</span>
 <span id="226">226</span>
 <span id="227">227</span>
-</pre><pre class="rust ">
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Raw Filesystem API for Rust — enable simpler browsing with ease</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This library is to enable both servers and clients to use the RFSAPI,</span>
 <span class="doccomment">//! see [D&#39;Oh](https://github.com/thecoshman/doh) for usage example.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Format spec</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Requests to a servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made</span>
+<span class="doccomment">//! by doing a GET request and setting the `X-Raw-Filesystem-API` header to `1`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The header has no bearing on non-GET requests.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! If the server supports RFSAPI, the response will have `X-Raw-Filesystem-API` header also set to `1`,</span>
+<span class="doccomment">//! the `Content-Type` should be JSON (`application/json; charset=utf8`).</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! RFSAPI responses do *not* return file contents. Use an undecorated GET instead.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The response body is a JSON object of type [`FilesetData`](struct.FilesetData.html) in the following format:</span>
+<span class="doccomment">//! ```json</span>
+<span class="doccomment">//! {</span>
+<span class="doccomment">//!   &quot;writes_supported&quot;: boolean,</span>
+<span class="doccomment">//!   &quot;is_root&quot;: boolean,</span>
+<span class="doccomment">//!   &quot;is_file&quot;: boolean,</span>
+<span class="doccomment">//!   &quot;files&quot;: Array&lt;RawFileData&gt;</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! 1. `writes_supported` specifies if the server supports/allows write requests like PUT or DELETE.</span>
+<span class="doccomment">//! 2. `is_root` specifies whether the requested path is the root directory of the server – i.e. if there are no directories above it; `false` for all files.</span>
+<span class="doccomment">//! 3. `is_file` specifies whether the requested path is a file or a directory.</span>
+<span class="doccomment">//! 4. `files` is the list of files in the listing and will have only one member if `is_file` is true —</span>
+<span class="doccomment">//!    this array is not sorted in any particular order.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing.</span>
+<span class="doccomment">//! ```json</span>
+<span class="doccomment">//! {</span>
+<span class="doccomment">//!   &quot;mime_type&quot;: MIME type as string,</span>
+<span class="doccomment">//!   &quot;name&quot;: string,</span>
+<span class="doccomment">//!   &quot;last_modified&quot;: RFC3339 Date as string,</span>
+<span class="doccomment">//!   &quot;size&quot;: integer,</span>
+<span class="doccomment">//!   &quot;is_file&quot;: boolean</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! 1. `mime_type` is the type of the requested entity – `text/plain` for plaintext files, `application/zip` for ZIPs, &amp;c;</span>
+<span class="doccomment">//!    `text/directory` is used for directories.</span>
+<span class="doccomment">//! 2. `name` is the filename, not including the path name up to there.</span>
+<span class="doccomment">//! 3. `last_modified` is the file&#39;s last modification date in [RFC3339](https://tools.ietf.org/html/rfc3339) format</span>
+<span class="doccomment">//!    (`2012-02-22T07:53:18-07:00`, `2012-02-22T14:53:18.42Z`, &amp;c.). The time-zone is implementation-defined –</span>
+<span class="doccomment">//!    `http` always normalises to UTC.</span>
+<span class="doccomment">//! 4. `size` is the file&#39;s size in bytes, or `0` for directories.</span>
+<span class="doccomment">//! 5. `is_file` specifies whether the entity is a file or a directory.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Examples</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Given the following tree at the root of the server, running on port 8000:</span>
+<span class="doccomment">//! ```plaintext</span>
+<span class="doccomment">//! /</span>
+<span class="doccomment">//! ├── a.txt</span>
+<span class="doccomment">//! ├── ndis2-15.6.1.zip</span>
+<span class="doccomment">//! └── works</span>
+<span class="doccomment">//!     └── b.txt</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Then the metadata `curl -v -H &quot;X-Raw-Filesystem-API: 1&quot; 127.0.0.1:8000` invocation might look something like this:</span>
+<span class="doccomment">//! ```plaintext</span>
+<span class="doccomment">//! * Expire in 0 ms for 6 (transfer 0x55dc328b3e80)</span>
+<span class="doccomment">//! *   Trying 127.0.0.1...</span>
+<span class="doccomment">//! * TCP_NODELAY set</span>
+<span class="doccomment">//! * Expire in 200 ms for 4 (transfer 0x55dc328b3e80)</span>
+<span class="doccomment">//! * Connected to 127.0.0.1 (127.0.0.1) port 8000 (#0)</span>
+<span class="doccomment">//! &gt; GET / HTTP/1.1</span>
+<span class="doccomment">//! &gt; Host: 127.0.0.1:8000</span>
+<span class="doccomment">//! &gt; User-Agent: curl/7.64.0</span>
+<span class="doccomment">//! &gt; Accept: */*</span>
+<span class="doccomment">//! &gt; X-Raw-Filesystem-API: 1</span>
+<span class="doccomment">//! &gt;</span>
+<span class="doccomment">//! &lt; HTTP/1.1 200 OK</span>
+<span class="doccomment">//! &lt; Server: http/1.9.2</span>
+<span class="doccomment">//! &lt; X-Raw-Filesystem-API: 1</span>
+<span class="doccomment">//! &lt; Content-Type: application/json; charset=utf-8</span>
+<span class="doccomment">//! &lt; Content-Length: 843</span>
+<span class="doccomment">//! &lt; Date: Wed, 22 Apr 2020 17:46:51 GMT</span>
+<span class="doccomment">//! &lt;</span>
+<span class="doccomment">//! * Connection #0 to host 127.0.0.1 left intact</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Note:</span>
+<span class="doccomment">//!   * The server returned `X-Raw-Filesystem-API: 1`</span>
+<span class="doccomment">//!   * The server returned `Content-Type: application/json; charset=utf-8`</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! So we can be sure that the response body will be an RFSAPI `FilesetData`:</span>
+<span class="doccomment">//! ```json</span>
+<span class="doccomment">//! {</span>
+<span class="doccomment">//!   &quot;writes_supported&quot;: false,</span>
+<span class="doccomment">//!   &quot;is_root&quot;: true,</span>
+<span class="doccomment">//!   &quot;is_file&quot;: false,</span>
+<span class="doccomment">//!   &quot;files&quot;: [</span>
+<span class="doccomment">//!     {</span>
+<span class="doccomment">//!       &quot;mime_type&quot;: &quot;application/zip&quot;,</span>
+<span class="doccomment">//!       &quot;name&quot;: &quot;ndis2-15.6.1.zip&quot;,</span>
+<span class="doccomment">//!       &quot;last_modified&quot;: &quot;2020-04-13T19:12:22.695457919Z&quot;,</span>
+<span class="doccomment">//!       &quot;size&quot;: 31387,</span>
+<span class="doccomment">//!       &quot;is_file&quot;: true</span>
+<span class="doccomment">//!     },</span>
+<span class="doccomment">//!     {</span>
+<span class="doccomment">//!       &quot;mime_type&quot;: &quot;text/directory&quot;,</span>
+<span class="doccomment">//!       &quot;name&quot;: &quot;works&quot;,</span>
+<span class="doccomment">//!       &quot;last_modified&quot;: &quot;2020-04-22T13:03:33.898025702Z&quot;,</span>
+<span class="doccomment">//!       &quot;size&quot;: 0,</span>
+<span class="doccomment">//!       &quot;is_file&quot;: false</span>
+<span class="doccomment">//!     },</span>
+<span class="doccomment">//!     {</span>
+<span class="doccomment">//!       &quot;mime_type&quot;: &quot;text/plain&quot;,</span>
+<span class="doccomment">//!       &quot;name&quot;: &quot;a.txt&quot;,</span>
+<span class="doccomment">//!       &quot;last_modified&quot;: &quot;2020-04-22T13:02:57.928406978Z&quot;,</span>
+<span class="doccomment">//!       &quot;size&quot;: 7,</span>
+<span class="doccomment">//!       &quot;is_file&quot;: true</span>
+<span class="doccomment">//!     }</span>
+<span class="doccomment">//!   ]</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! We can verify the size, for example, with `curl 127.0.0.1:8000/a.txt | wc -c`, which returns</span>
+<span class="doccomment">//! ```plaintext</span>
+<span class="doccomment">//! 7</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Say we append some data to `a.txt`, or just want to check if it was modified;</span>
+<span class="doccomment">//! `curl -H &quot;X-Raw-Filesystem-API: 1&quot; 127.0.0.1:8000/a.txt` might give us:</span>
+<span class="doccomment">//! ```json</span>
+<span class="doccomment">//! {</span>
+<span class="doccomment">//!   &quot;writes_supported&quot;: false,</span>
+<span class="doccomment">//!   &quot;is_root&quot;: false,</span>
+<span class="doccomment">//!   &quot;is_file&quot;: true,</span>
+<span class="doccomment">//!   &quot;files&quot;: [</span>
+<span class="doccomment">//!     {</span>
+<span class="doccomment">//!       &quot;mime_type&quot;: &quot;text/plain&quot;,</span>
+<span class="doccomment">//!       &quot;name&quot;: &quot;a.txt&quot;,</span>
+<span class="doccomment">//!       &quot;last_modified&quot;: &quot;2020-04-22T17:55:18.159945230Z&quot;,</span>
+<span class="doccomment">//!       &quot;size&quot;: 12,</span>
+<span class="doccomment">//!       &quot;is_file&quot;: true</span>
+<span class="doccomment">//!     }</span>
+<span class="doccomment">//!   ]</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! To see inside the `works` directory we can `curl -H &quot;X-Raw-Filesystem-API: 1&quot; 127.0.0.1:8000/works`:</span>
+<span class="doccomment">//! ```json</span>
+<span class="doccomment">//! {</span>
+<span class="doccomment">//!   &quot;writes_supported&quot;: false,</span>
+<span class="doccomment">//!   &quot;is_root&quot;: false,</span>
+<span class="doccomment">//!   &quot;is_file&quot;: false,</span>
+<span class="doccomment">//!   &quot;files&quot;: [</span>
+<span class="doccomment">//!     {</span>
+<span class="doccomment">//!       &quot;mime_type&quot;: &quot;text/plain&quot;,</span>
+<span class="doccomment">//!       &quot;name&quot;: &quot;b.txt&quot;,</span>
+<span class="doccomment">//!       &quot;last_modified&quot;: &quot;2020-04-22T13:03:33.898026135Z&quot;,</span>
+<span class="doccomment">//!       &quot;size&quot;: 13,</span>
+<span class="doccomment">//!       &quot;is_file&quot;: true</span>
+<span class="doccomment">//!     }</span>
+<span class="doccomment">//!   ]</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! ```</span>
 
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
@@ -262,28 +582,28 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RawFsApiHeader</span>(<span class="kw">pub</span> <span class="ident">bool</span>);
 
 <span class="kw">impl</span> <span class="ident">Header</span> <span class="kw">for</span> <span class="ident">RawFsApiHeader</span> {
-    <span class="kw">fn</span> <span class="ident">header_name</span>() <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">header_name</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
         <span class="string">&quot;X-Raw-Filesystem-API&quot;</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">parse_header</span>(<span class="ident">raw</span>: <span class="kw-2">&amp;</span><span class="ident">RawHeader</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFsApiHeader</span>, <span class="ident">HyperError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">parse_header</span>(<span class="ident">raw</span>: <span class="kw-2">&amp;</span><span class="ident">RawHeader</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFsApiHeader</span>, <span class="ident">HyperError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">line</span>) <span class="op">=</span> <span class="ident">raw</span>.<span class="ident">one</span>() {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">line</span>[..] {
-                <span class="string">b&quot;0&quot;</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">RawFsApiHeader</span>(<span class="bool-val">false</span>)),
-                <span class="string">b&quot;1&quot;</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">RawFsApiHeader</span>(<span class="bool-val">true</span>)),
-                <span class="kw">_</span> <span class="op">=&gt;</span> {}
+                <span class="string">b&quot;0&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">RawFsApiHeader</span>(<span class="bool-val">false</span>)),
+                <span class="string">b&quot;1&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">RawFsApiHeader</span>(<span class="bool-val">true</span>)),
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {}
             }
         }
         <span class="prelude-val">Err</span>(<span class="ident">HyperError</span>::<span class="ident">Header</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">fmt_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HeaderFormatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HeaderFormatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">fmt_line</span>(<span class="kw-2">&amp;</span><span class="self">self</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RawFsApiHeader</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">write_char</span>(<span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span> { <span class="string">&#39;1&#39;</span> } <span class="kw">else</span> { <span class="string">&#39;0&#39;</span> })
     }
 }
@@ -346,14 +666,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">RawFileData</span> {
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">serializer</span>.<span class="ident">serialize_map</span>(<span class="prelude-val">Some</span>(<span class="ident">RAW_FILE_DATA_FIELDS</span>.<span class="ident">len</span>())));
         <span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">serialize_entry</span>(<span class="string">&quot;mime_type&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">mime_type</span>.<span class="ident">to_string</span>()));
         <span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">serialize_entry</span>(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>));
         <span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">serialize_entry</span>(<span class="string">&quot;last_modified&quot;</span>,
                                  <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">last_modified</span>
                                      .<span class="ident">to_utc</span>()
-                                     .<span class="ident">strftime</span>(<span class="kw">if</span> <span class="self">self</span>.<span class="ident">last_modified</span>.<span class="ident">tm_nsec</span> <span class="op">==</span> <span class="number">0</span> {
+                                     .<span class="ident">strftime</span>(<span class="kw">if</span> <span class="self">self</span>.<span class="ident">last_modified</span>.<span class="ident">tm_nsec</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                                          <span class="string">&quot;%Y-%m-%dT%H:%M:%SZ&quot;</span>
                                      } <span class="kw">else</span> {
                                          <span class="string">&quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;</span>
@@ -367,7 +687,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RawFileData</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident">deserializer</span>.<span class="ident">deserialize_struct</span>(<span class="string">&quot;RawFileData&quot;</span>, <span class="ident">RAW_FILE_DATA_FIELDS</span>, <span class="ident">RawFileDataVisitor</span>)
     }
 }
@@ -378,28 +698,28 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RawFileDataVisitor</span> {
     <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">RawFileData</span>;
 
-    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">formatter</span>.<span class="ident">write_str</span>(<span class="string">&quot;struct RawFileData&quot;</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">visit_seq</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">SeqAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">seq</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">visit_seq</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">SeqAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">seq</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="ident">RawFileData</span> {
             <span class="ident">mime_type</span>: {
-                <span class="kw">let</span> <span class="ident">mt</span>: <span class="ident">String</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="self">self</span>)));
+                <span class="kw">let</span> <span class="ident">mt</span>: <span class="ident">String</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="self">self</span>)));
                 <span class="macro">try</span><span class="macro">!</span>(<span class="ident">mt</span>.<span class="ident">parse</span>()
                     .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_value</span>(<span class="ident">de</span>::<span class="ident">Unexpected</span>::<span class="ident">Str</span>(<span class="kw-2">&amp;</span><span class="ident">mt</span>), <span class="kw-2">&amp;</span><span class="string">&quot;valid MIME type&quot;</span>)))
             },
-            <span class="ident">name</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
+            <span class="ident">name</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
             <span class="ident">last_modified</span>: {
-                <span class="kw">let</span> <span class="ident">lm</span>: <span class="ident">String</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="self">self</span>)));
+                <span class="kw">let</span> <span class="ident">lm</span>: <span class="ident">String</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="self">self</span>)));
                 <span class="macro">try</span><span class="macro">!</span>(<span class="ident">parse_rfc3339</span>(<span class="kw-2">&amp;</span><span class="ident">lm</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_value</span>(<span class="ident">de</span>::<span class="ident">Unexpected</span>::<span class="ident">Str</span>(<span class="kw-2">&amp;</span><span class="ident">lm</span>), <span class="kw-2">&amp;</span><span class="string">&quot;RRC3339 timestamp&quot;</span>)))
             },
-            <span class="ident">size</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">3</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
-            <span class="ident">is_file</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">4</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
+            <span class="ident">size</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">3</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
+            <span class="ident">is_file</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">seq</span>.<span class="ident">next_element</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_length</span>(<span class="number">4</span>, <span class="kw-2">&amp;</span><span class="self">self</span>))),
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RawFileData</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">name</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_modified</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -407,7 +727,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">is_file</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">key</span>) <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">next_key</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>()) {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">key</span>[..] {
-                <span class="string">&quot;mime_type&quot;</span> <span class="op">=&gt;</span> {
+                <span class="string">&quot;mime_type&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">mime_type</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;mime_type&quot;</span>));
                     }
@@ -415,43 +735,43 @@
                     <span class="ident">mime_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">nv</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">Mime</span><span class="op">&gt;</span>()
                         .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_value</span>(<span class="ident">de</span>::<span class="ident">Unexpected</span>::<span class="ident">Str</span>(<span class="kw-2">&amp;</span><span class="ident">nv</span>), <span class="kw-2">&amp;</span><span class="string">&quot;valid MIME type&quot;</span>))));
                 }
-                <span class="string">&quot;name&quot;</span> <span class="op">=&gt;</span> {
+                <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;name&quot;</span>));
                     }
                     <span class="ident">name</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()));
                 }
-                <span class="string">&quot;last_modified&quot;</span> <span class="op">=&gt;</span> {
+                <span class="string">&quot;last_modified&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">last_modified</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;last_modified&quot;</span>));
                     }
                     <span class="kw">let</span> <span class="ident">nv</span>: <span class="ident">String</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">next_value</span>());
                     <span class="ident">last_modified</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">parse_rfc3339</span>(<span class="kw-2">&amp;</span><span class="ident">nv</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">invalid_value</span>(<span class="ident">de</span>::<span class="ident">Unexpected</span>::<span class="ident">Str</span>(<span class="kw-2">&amp;</span><span class="ident">nv</span>), <span class="kw-2">&amp;</span><span class="string">&quot;RRC3339 timestamp&quot;</span>))));
                 }
-                <span class="string">&quot;size&quot;</span> <span class="op">=&gt;</span> {
+                <span class="string">&quot;size&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">size</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;size&quot;</span>));
                     }
                     <span class="ident">size</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()));
                 }
-                <span class="string">&quot;is_file&quot;</span> <span class="op">=&gt;</span> {
+                <span class="string">&quot;is_file&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">is_file</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;is_file&quot;</span>));
                     }
                     <span class="ident">is_file</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()));
                 }
-                <span class="ident">key</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">unknown_field</span>(<span class="ident">key</span>, <span class="ident">RAW_FILE_DATA_FIELDS</span>)),
+                <span class="ident">key</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">unknown_field</span>(<span class="ident">key</span>, <span class="ident">RAW_FILE_DATA_FIELDS</span>)),
             }
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">RawFileData</span> {
-            <span class="ident">mime_type</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">mime_type</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;mime_type&quot;</span>))),
-            <span class="ident">name</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">name</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;name&quot;</span>))),
-            <span class="ident">last_modified</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">last_modified</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;last_modified&quot;</span>))),
-            <span class="ident">size</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">size</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;size&quot;</span>))),
-            <span class="ident">is_file</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">is_file</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;is_file&quot;</span>))),
+            <span class="ident">mime_type</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">mime_type</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;mime_type&quot;</span>))),
+            <span class="ident">name</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">name</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;name&quot;</span>))),
+            <span class="ident">last_modified</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">last_modified</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;last_modified&quot;</span>))),
+            <span class="ident">size</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">size</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;size&quot;</span>))),
+            <span class="ident">is_file</span>: <span class="macro">try</span><span class="macro">!</span>(<span class="ident">is_file</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">missing_field</span>(<span class="string">&quot;is_file&quot;</span>))),
         })
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "rfsapi";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rfsapi";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.27/src/proto/h1/conn.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>conn.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.11.27/src/proto/h1/conn.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>conn.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../hyper/index.html'><div class='logo-container'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1361,7 +1361,7 @@
 <span id="1361">1361</span>
 <span id="1362">1362</span>
 <span id="1363">1363</span>
-</pre><pre class="rust ">
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::{<span class="self">self</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
@@ -1391,7 +1391,7 @@
 <span class="doccomment">/// determine if this  connection can be kept alive after the message,</span>
 <span class="doccomment">/// or if it is complete.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Conn</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">B</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="ident">io</span>: <span class="ident">Buffered</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">EncodedBuf</span><span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">io</span>: <span class="ident">Buffered</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">EncodedBuf</span><span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">state</span>: <span class="ident">State</span>,
     <span class="ident">_marker</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 }
@@ -1412,7 +1412,7 @@ where I: AsyncRead + AsyncWrite,
       <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
       <span class="ident">T</span>: <span class="ident">Http1Transaction</span>,
 {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">io</span>: <span class="ident">I</span>) <span class="op">-&gt;</span> <span class="ident">Conn</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">B</span>, <span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">io</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Conn</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">B</span>, <span class="ident">T</span><span class="op">&gt;</span> {
         <span class="ident">Conn</span> {
             <span class="ident">io</span>: <span class="ident">Buffered</span>::<span class="ident">new</span>(<span class="ident">io</span>),
             <span class="ident">state</span>: <span class="ident">State</span> {
@@ -1446,12 +1446,12 @@ where I: AsyncRead + AsyncWrite,
         <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">set_write_strategy_flatten</span>();
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">I</span>, <span class="ident">Bytes</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">I</span>, <span class="ident">Bytes</span>) {
         <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">into_inner</span>()
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tokio-proto&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">poll_incoming</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">MessageHead</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Incoming</span><span class="op">&gt;</span>, <span class="ident">Chunk</span>, ::<span class="ident">Error</span><span class="op">&gt;&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll_incoming</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">MessageHead</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Incoming</span><span class="op">&gt;</span>, <span class="ident">Chunk</span>, ::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Conn::poll_incoming()&quot;</span>);
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_tokio_proto</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
@@ -1459,13 +1459,13 @@ where I: AsyncRead + AsyncWrite,
         <span class="kw">struct</span> <span class="ident">ParseEof</span>;
 
         <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ParseEof</span> {
-            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>::<span class="ident">description</span>(<span class="self">self</span>))
             }
         }
 
         <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ParseEof</span> {
-            <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+            <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
                 <span class="string">&quot;end of file reached before parsing could complete&quot;</span>
             }
         }
@@ -1476,19 +1476,19 @@ where I: AsyncRead + AsyncWrite,
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>));
             } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">can_read_head</span>() {
                 <span class="kw">return</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">read_head</span>() {
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>((<span class="ident">head</span>, <span class="ident">body</span>)))) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>((<span class="ident">head</span>, <span class="ident">body</span>)))) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> {
                             <span class="ident">message</span>: <span class="ident">head</span>,
                             <span class="ident">body</span>: <span class="ident">body</span>,
                         })))
                     },
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)),
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
-                    <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">Io</span>(<span class="ident">err</span>)) <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>),
-                    <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">Incomplete</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)),
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
+                    <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">Io</span>(<span class="ident">err</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>),
+                    <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">Incomplete</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">UnexpectedEof</span>, <span class="ident">ParseEof</span>))
                     },
-                    <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Error</span> {
+                    <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Error</span> {
                         <span class="ident">error</span>: <span class="ident">err</span>,
                     }))),
                 };
@@ -1515,52 +1515,52 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_read_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_read_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_read_closed</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_write_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_write_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_write_closed</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_read_head</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_read_head</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> {
             <span class="comment">//Reading::Init =&gt; true,</span>
-            <span class="ident">Reading</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> {
+            <span class="ident">Reading</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">T</span>::<span class="ident">should_read_first</span>() {
                     <span class="bool-val">true</span>
                 } <span class="kw">else</span> {
                     <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-                        <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
-                        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                        <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+                        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
                     }
                 }
             },
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_read_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_read_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> {
-            <span class="ident">Reading</span>::<span class="ident">Body</span>(..) <span class="op">=&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">Reading</span>::<span class="ident">Body</span>(..) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">should_error_on_eof</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">should_error_on_eof</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="comment">// If we&#39;re idle, it&#39;s probably just the connection closing gracefully.</span>
-        <span class="ident">T</span>::<span class="ident">should_error_on_parse_eof</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_idle</span>()
+        <span class="ident">T</span>::<span class="ident">should_error_on_parse_eof</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_idle</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_head</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">MessageHead</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Incoming</span><span class="op">&gt;</span>, <span class="ident">bool</span>)<span class="op">&gt;</span>, ::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_head</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">MessageHead</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Incoming</span><span class="op">&gt;</span>, <span class="ident">bool</span>)<span class="op">&gt;</span>, ::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">can_read_head</span>());
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Conn::read_head&quot;</span>);
 
         <span class="kw">loop</span> {
             <span class="kw">let</span> (<span class="ident">version</span>, <span class="ident">head</span>) <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">head</span>)) <span class="op">=&gt;</span> (<span class="ident">head</span>.<span class="ident">version</span>, <span class="ident">head</span>),
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">head</span>)) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">head</span>.<span class="ident">version</span>, <span class="ident">head</span>),
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// If we are currently waiting on a message, then an empty</span>
                     <span class="comment">// message should be reported as an error. If not, it is just</span>
                     <span class="comment">// the connection closing gracefully.</span>
@@ -1568,7 +1568,7 @@ where I: AsyncRead + AsyncWrite,
                     <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close_read</span>();
                     <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">consume_leading_lines</span>();
                     <span class="kw">let</span> <span class="ident">was_mid_parse</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">is_empty</span>();
-                    <span class="kw">return</span> <span class="kw">if</span> <span class="ident">was_mid_parse</span> <span class="op">||</span> <span class="ident">must_error</span> {
+                    <span class="kw">return</span> <span class="kw">if</span> <span class="ident">was_mid_parse</span> <span class="op">|</span><span class="op">|</span> <span class="ident">must_error</span> {
                         <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;parse error ({}) with {} bytes&quot;</span>, <span class="ident">e</span>, <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">len</span>());
                         <span class="self">self</span>.<span class="ident">on_parse_error</span>(<span class="ident">e</span>)
                             .<span class="ident">map</span>(<span class="op">|</span>()<span class="op">|</span> <span class="ident">Async</span>::<span class="ident">NotReady</span>)
@@ -1580,9 +1580,9 @@ where I: AsyncRead + AsyncWrite,
             };
 
             <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">version</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">version</span> {
-                <span class="ident">HttpVersion</span>::<span class="ident">Http10</span> <span class="op">=&gt;</span> <span class="ident">Version</span>::<span class="ident">Http10</span>,
-                <span class="ident">HttpVersion</span>::<span class="ident">Http11</span> <span class="op">=&gt;</span> <span class="ident">Version</span>::<span class="ident">Http11</span>,
-                <span class="kw">_</span> <span class="op">=&gt;</span> {
+                <span class="ident">HttpVersion</span>::<span class="ident">Http10</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Version</span>::<span class="ident">Http10</span>,
+                <span class="ident">HttpVersion</span>::<span class="ident">Http11</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Version</span>::<span class="ident">Http11</span>,
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;unimplemented HTTP Version = {:?}&quot;</span>, <span class="ident">version</span>);
                     <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close_read</span>();
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">Version</span>);
@@ -1590,20 +1590,20 @@ where I: AsyncRead + AsyncWrite,
             };
 
             <span class="kw">let</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">T</span>::<span class="ident">decoder</span>(<span class="kw-2">&amp;</span><span class="ident">head</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">method</span>) {
-                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Normal</span>(<span class="ident">d</span>)) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Normal</span>(<span class="ident">d</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">d</span>
                 },
-                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Final</span>(<span class="ident">d</span>)) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Final</span>(<span class="ident">d</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;final decoder, HTTP ending&quot;</span>);
                     <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">d</span>.<span class="ident">is_eof</span>());
                     <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close_read</span>();
                     <span class="ident">d</span>
                 },
-                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Ignore</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">Decode</span>::<span class="ident">Ignore</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// likely a 1xx message that we can ignore</span>
                     <span class="kw">continue</span>;
                 }
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;decoder error = {:?}&quot;</span>, <span class="ident">e</span>);
                     <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close_read</span>();
                     <span class="kw">return</span> <span class="self">self</span>.<span class="ident">on_parse_error</span>(<span class="ident">e</span>)
@@ -1619,7 +1619,7 @@ where I: AsyncRead + AsyncWrite,
                 <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">write_buf_mut</span>().<span class="ident">extend_from_slice</span>(<span class="ident">msg</span>);
             }
             <span class="kw">let</span> <span class="ident">wants_keep_alive</span> <span class="op">=</span> <span class="ident">head</span>.<span class="ident">should_keep_alive</span>();
-            <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">keep_alive</span> <span class="op">&amp;=</span> <span class="ident">wants_keep_alive</span>;
+            <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">keep_alive</span> <span class="kw-2">&amp;</span><span class="op">=</span> <span class="ident">wants_keep_alive</span>;
             <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">reading</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">decoder</span>.<span class="ident">is_eof</span>() {
                 (<span class="bool-val">false</span>, <span class="ident">Reading</span>::<span class="ident">KeepAlive</span>)
             } <span class="kw">else</span> {
@@ -1637,15 +1637,15 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Chunk</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Chunk</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">can_read_body</span>());
 
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Conn::read_body&quot;</span>);
 
         <span class="kw">let</span> (<span class="ident">reading</span>, <span class="ident">ret</span>) <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> {
-            <span class="ident">Reading</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Reading</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">match</span> <span class="ident">decoder</span>.<span class="ident">decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">io</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">slice</span>)) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">slice</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> (<span class="ident">reading</span>, <span class="ident">chunk</span>) <span class="op">=</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">slice</span>.<span class="ident">is_empty</span>() {
                             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Chunk</span>::<span class="ident">from</span>(<span class="ident">slice</span>))));
                         } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">decoder</span>.<span class="ident">is_eof</span>() {
@@ -1660,14 +1660,14 @@ where I: AsyncRead + AsyncWrite,
                         };
                         (<span class="ident">reading</span>, <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">chunk</span>)))
                     },
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
-                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;decode stream error: {}&quot;</span>, <span class="ident">e</span>);
                         (<span class="ident">Reading</span>::<span class="ident">Closed</span>, <span class="prelude-val">Err</span>(<span class="ident">e</span>))
                     },
                 }
             },
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;read_body invalid state: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;read_body invalid state: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span>),
         };
 
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> <span class="op">=</span> <span class="ident">reading</span>;
@@ -1675,8 +1675,8 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">ret</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_keep_alive</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_head</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_body</span>());
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_keep_alive</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_head</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_body</span>());
 
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;read_keep_alive; is_mid_message={}&quot;</span>, <span class="self">self</span>.<span class="ident">is_mid_message</span>());
 
@@ -1688,14 +1688,14 @@ where I: AsyncRead + AsyncWrite,
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">is_mid_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_mid_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span>) {
-            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">Init</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">Init</span>) <span class="op">=&gt;</span> <span class="bool-val">false</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">Init</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">Init</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wants_read_again</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wants_read_again</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">notify_read</span>;
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">notify_read</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;wants_read_again? {}&quot;</span>, <span class="ident">ret</span>);
@@ -1704,7 +1704,7 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tokio-proto&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">maybe_park_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">io</span>.<span class="ident">is_read_blocked</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_tokio_proto</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">io</span>.<span class="ident">is_read_blocked</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_tokio_proto</span> {
             <span class="comment">// the Io object is ready to read, which means it will never alert</span>
             <span class="comment">// us that it is ready until we drain it. However, we&#39;re currently</span>
             <span class="comment">// finished reading, so we need to park the task to be able to</span>
@@ -1729,19 +1729,19 @@ where I: AsyncRead + AsyncWrite,
     <span class="comment">//</span>
     <span class="comment">// This should only be called for Clients wanting to enter the idle</span>
     <span class="comment">// state.</span>
-    <span class="kw">fn</span> <span class="ident">require_empty_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_head</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_body</span>());
+    <span class="kw">fn</span> <span class="ident">require_empty_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_head</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">can_read_body</span>());
 
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">is_empty</span>() {
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;received an unexpected {} bytes&quot;</span>, <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">len</span>());
             <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">InvalidData</span>, <span class="string">&quot;unexpected bytes after message ended&quot;</span>))
         } <span class="kw">else</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">try_io_read</span>()<span class="question-mark">?</span> {
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="number">0</span>) <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="number">0</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// case handled in try_io_read</span>
                     <span class="prelude-val">Ok</span>(())
                 },
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">n</span>) <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">n</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;received {} bytes on an idle connection&quot;</span>, <span class="ident">n</span>);
                     <span class="kw">let</span> <span class="ident">desc</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_idle</span>() {
                         <span class="string">&quot;unexpected bytes after message ended&quot;</span>
@@ -1750,16 +1750,16 @@ where I: AsyncRead + AsyncWrite,
                     };
                     <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">InvalidData</span>, <span class="ident">desc</span>))
                 },
-                <span class="ident">Async</span>::<span class="ident">NotReady</span> <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">NotReady</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="prelude-val">Ok</span>(())
                 },
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">try_io_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_io_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
          <span class="kw">match</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_from_io</span>() {
-            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="number">0</span>)) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="number">0</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;try_io_read; found EOF on connection: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>);
                 <span class="kw">let</span> <span class="ident">must_error</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">should_error_on_eof</span>();
                 <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">must_error</span> {
@@ -1777,13 +1777,13 @@ where I: AsyncRead + AsyncWrite,
                 <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close_read</span>();
                 <span class="ident">ret</span>
             },
-            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">n</span>)) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">n</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="ident">n</span>))
             },
-            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>)
             },
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close</span>();
                 <span class="prelude-val">Err</span>(<span class="ident">e</span>)
             }
@@ -1804,27 +1804,27 @@ where I: AsyncRead + AsyncWrite,
 
         <span class="kw">let</span> <span class="ident">wants_read</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> {
             <span class="ident">Reading</span>::<span class="ident">Body</span>(..) <span class="op">|</span>
-            <span class="ident">Reading</span>::<span class="ident">KeepAlive</span> <span class="op">=&gt;</span> <span class="kw">return</span>,
-            <span class="ident">Reading</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
-            <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">Reading</span>::<span class="ident">KeepAlive</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span>,
+            <span class="ident">Reading</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         };
 
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Body</span>(..) <span class="op">=&gt;</span> <span class="kw">return</span>,
+            <span class="ident">Writing</span>::<span class="ident">Body</span>(..) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span>,
             <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">|</span>
             <span class="ident">Writing</span>::<span class="ident">KeepAlive</span> <span class="op">|</span>
-            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> (),
+            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> (),
         }
 
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">io</span>.<span class="ident">is_read_blocked</span>() {
-            <span class="kw">if</span> <span class="ident">wants_read</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">is_empty</span>() {
+            <span class="kw">if</span> <span class="ident">wants_read</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_buf</span>().<span class="ident">is_empty</span>() {
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">read_from_io</span>() {
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="kw">_</span>)) <span class="op">=&gt;</span> (),
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;maybe_notify; read_from_io blocked&quot;</span>);
                         <span class="kw">return</span>
                     },
-                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;maybe_notify; read_from_io error: {}&quot;</span>, <span class="ident">e</span>);
                         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close</span>();
                     }
@@ -1851,29 +1851,29 @@ where I: AsyncRead + AsyncWrite,
         <span class="self">self</span>.<span class="ident">maybe_notify</span>();
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_write_head</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_write_head</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">T</span>::<span class="ident">should_read_first</span>() {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">reading</span> {
-                <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="bool-val">false</span>,
-                <span class="kw">_</span> <span class="op">=&gt;</span> {},
+                <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="bool-val">false</span>,
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
             }
         }
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>
+            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_write_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_write_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Body</span>(..) <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+            <span class="ident">Writing</span>::<span class="ident">Body</span>(..) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
             <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">|</span>
             <span class="ident">Writing</span>::<span class="ident">KeepAlive</span> <span class="op">|</span>
-            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_buffer_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">can_buffer_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">can_buffer</span>()
     }
 
@@ -1888,7 +1888,7 @@ where I: AsyncRead + AsyncWrite,
 
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">write_buf_mut</span>();
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">T</span>::<span class="ident">encode</span>(<span class="ident">head</span>, <span class="ident">body</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">method</span>, <span class="ident">buf</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">encoder</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">encoder</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">encoder</span>.<span class="ident">is_eof</span>() {
                     <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="ident">encoder</span>)
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">encoder</span>.<span class="ident">is_last</span>() {
@@ -1897,7 +1897,7 @@ where I: AsyncRead + AsyncWrite,
                     <span class="ident">Writing</span>::<span class="ident">KeepAlive</span>
                 }
             },
-            <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>);
                 <span class="ident">Writing</span>::<span class="ident">Closed</span>
             }
@@ -1911,14 +1911,14 @@ where I: AsyncRead + AsyncWrite,
 
         <span class="kw">let</span> <span class="ident">wants_keep_alive</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">wants_keep_alive</span>() {
             <span class="kw">let</span> <span class="ident">ka</span> <span class="op">=</span> <span class="ident">head</span>.<span class="ident">should_keep_alive</span>();
-            <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">keep_alive</span> <span class="op">&amp;=</span> <span class="ident">ka</span>;
+            <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">keep_alive</span> <span class="kw-2">&amp;</span><span class="op">=</span> <span class="ident">ka</span>;
             <span class="ident">ka</span>
         } <span class="kw">else</span> {
             <span class="bool-val">false</span>
         };
 
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">version</span> {
-            <span class="ident">Version</span>::<span class="ident">Http10</span> <span class="op">=&gt;</span> {
+            <span class="ident">Version</span>::<span class="ident">Http10</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// If the remote only knows HTTP/1.0, we should force ourselves</span>
                 <span class="comment">// to do only speak HTTP/1.0 as well.</span>
                 <span class="ident">head</span>.<span class="ident">version</span> <span class="op">=</span> <span class="ident">HttpVersion</span>::<span class="ident">Http10</span>;
@@ -1926,7 +1926,7 @@ where I: AsyncRead + AsyncWrite,
                     <span class="ident">head</span>.<span class="ident">headers</span>.<span class="ident">set</span>(<span class="ident">Connection</span>::<span class="ident">keep_alive</span>());
                 }
             },
-            <span class="ident">Version</span>::<span class="ident">Http11</span> <span class="op">=&gt;</span> {
+            <span class="ident">Version</span>::<span class="ident">Http11</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// If the remote speaks HTTP/1.1, then it *should* be fine with</span>
                 <span class="comment">// both HTTP/1.0 and HTTP/1.1 from us. So again, we just let</span>
                 <span class="comment">// the user&#39;s headers be.</span>
@@ -1934,7 +1934,7 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chunk</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chunk</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">can_write_body</span>());
 
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">can_buffer_body</span>() {
@@ -1949,7 +1949,7 @@ where I: AsyncRead + AsyncWrite,
         }
 
         <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">encoder</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">encoder</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">chunk</span>) <span class="op">=</span> <span class="ident">chunk</span> {
                     <span class="kw">if</span> <span class="ident">chunk</span>.<span class="ident">as_ref</span>().<span class="ident">is_empty</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>);
@@ -1970,7 +1970,7 @@ where I: AsyncRead + AsyncWrite,
                 } <span class="kw">else</span> {
                     <span class="comment">// end of stream, that means we should try to eof</span>
                     <span class="kw">match</span> <span class="ident">encoder</span>.<span class="ident">end</span>() {
-                        <span class="prelude-val">Ok</span>(<span class="ident">end</span>) <span class="op">=&gt;</span> {
+                        <span class="prelude-val">Ok</span>(<span class="ident">end</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">end</span>) <span class="op">=</span> <span class="ident">end</span> {
                                 <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">buffer</span>(<span class="ident">end</span>);
                             }
@@ -1980,11 +1980,11 @@ where I: AsyncRead + AsyncWrite,
                                 <span class="ident">Writing</span>::<span class="ident">KeepAlive</span>
                             }
                         },
-                        <span class="prelude-val">Err</span>(<span class="ident">_not_eof</span>) <span class="op">=&gt;</span> <span class="ident">Writing</span>::<span class="ident">Closed</span>,
+                        <span class="prelude-val">Err</span>(<span class="ident">_not_eof</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Writing</span>::<span class="ident">Closed</span>,
                     }
                 }
             },
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;write_body invalid state: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;write_body invalid state: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span>),
         };
 
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="ident">state</span>;
@@ -1996,37 +1996,37 @@ where I: AsyncRead + AsyncWrite,
     <span class="comment">//</span>
     <span class="comment">// - Client: there is nothing we can do</span>
     <span class="comment">// - Server: if Response hasn&#39;t been written yet, we can send a 4xx response</span>
-    <span class="kw">fn</span> <span class="ident">on_parse_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">err</span>: ::<span class="ident">Error</span>) <span class="op">-&gt;</span> ::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">on_parse_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">err</span>: ::<span class="ident">Error</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> {
+            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="ident">T</span>::<span class="ident">on_error</span>(<span class="kw-2">&amp;</span><span class="ident">err</span>) {
                     <span class="self">self</span>.<span class="ident">write_head</span>(<span class="ident">msg</span>, <span class="bool-val">false</span>);
                     <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>);
                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
                 }
             }
-            <span class="kw">_</span> <span class="op">=&gt;</span> (),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> (),
         }
 
         <span class="comment">// fallback is pass the error back up</span>
         <span class="prelude-val">Err</span>(<span class="ident">err</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">io</span>.<span class="ident">flush</span>());
         <span class="self">self</span>.<span class="ident">try_keep_alive</span>();
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;flushed {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">state</span>);
         <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(()))
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">io_mut</span>().<span class="ident">shutdown</span>() {
-            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
-            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(())) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(())) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;shut down IO&quot;</span>);
                 <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(()))
             }
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;error shutting down IO: {}&quot;</span>, <span class="ident">e</span>);
                 <span class="prelude-val">Err</span>(<span class="ident">e</span>)
             }
@@ -2049,7 +2049,7 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">error</span>.<span class="ident">take</span>() {
             <span class="prelude-val">Err</span>(<span class="ident">err</span>)
         } <span class="kw">else</span> {
@@ -2070,7 +2070,7 @@ where I: AsyncRead + AsyncWrite,
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">poll_incoming</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> {
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;poll error: {}&quot;</span>, <span class="ident">err</span>);
             <span class="ident">err</span>
@@ -2088,11 +2088,11 @@ where I: AsyncRead + AsyncWrite,
     <span class="kw">type</span> <span class="ident">SinkError</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">frame</span>: <span class="self">Self</span>::<span class="ident">SinkItem</span>) <span class="op">-&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">SinkItem</span>, <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">frame</span>: <span class="self">Self</span>::<span class="ident">SinkItem</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">SinkItem</span>, <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Conn::start_send( frame={:?} )&quot;</span>, <span class="ident">DebugFrame</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>));
 
         <span class="kw">let</span> <span class="ident">frame</span>: <span class="self">Self</span>::<span class="ident">SinkItem</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">frame</span> {
-            <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>: <span class="ident">head</span>, <span class="ident">body</span> } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>: <span class="ident">head</span>, <span class="ident">body</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">can_write_head</span>() {
                     <span class="self">self</span>.<span class="ident">write_head</span>(<span class="ident">head</span>, <span class="ident">body</span>);
                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>);
@@ -2100,25 +2100,25 @@ where I: AsyncRead + AsyncWrite,
                     <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>: <span class="ident">head</span>, <span class="ident">body</span>: <span class="ident">body</span> }
                 }
             },
-            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span> } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">can_write_body</span>() {
                     <span class="kw">return</span> <span class="self">self</span>.<span class="ident">write_body</span>(<span class="ident">chunk</span>)
                         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">async</span><span class="op">|</span> {
                             <span class="kw">match</span> <span class="ident">async</span> {
-                                <span class="ident">AsyncSink</span>::<span class="ident">Ready</span> <span class="op">=&gt;</span> <span class="ident">AsyncSink</span>::<span class="ident">Ready</span>,
-                                <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="ident">chunk</span>) <span class="op">=&gt;</span> <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> {
+                                <span class="ident">AsyncSink</span>::<span class="ident">Ready</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AsyncSink</span>::<span class="ident">Ready</span>,
+                                <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="ident">chunk</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> {
                                     <span class="ident">chunk</span>: <span class="ident">chunk</span>,
                                 })
                             }
                         });
                 <span class="comment">// This allows when chunk is `None`, or `Some([])`.</span>
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">chunk</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>()).<span class="ident">unwrap_or</span>(<span class="number">0</span>) <span class="op">==</span> <span class="number">0</span> {
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">chunk</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>()).<span class="ident">unwrap_or</span>(<span class="number">0</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>);
                 } <span class="kw">else</span> {
                     <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="ident">chunk</span> }
                 }
             },
-            <span class="ident">Frame</span>::<span class="ident">Error</span> { <span class="ident">error</span> } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Error</span> { <span class="ident">error</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;received error, closing: {:?}&quot;</span>, <span class="ident">error</span>);
                 <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">close</span>();
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>);
@@ -2131,7 +2131,7 @@ where I: AsyncRead + AsyncWrite,
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Conn::poll_complete()&quot;</span>);
         <span class="self">self</span>.<span class="ident">flush</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> {
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;error writing: {}&quot;</span>, <span class="ident">err</span>);
@@ -2140,7 +2140,7 @@ where I: AsyncRead + AsyncWrite,
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="self">Self</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
         <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">flush</span>());
         <span class="self">self</span>.<span class="ident">shutdown</span>()
     }
@@ -2154,7 +2154,7 @@ where I: AsyncRead + AsyncWrite,
       <span class="ident">T</span>::<span class="ident">Outgoing</span>: <span class="ident">fmt</span>::<span class="ident">Debug</span> {}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Conn</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">B</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Conn&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;state&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>)
             .<span class="ident">field</span>(<span class="string">&quot;io&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">io</span>)
@@ -2192,7 +2192,7 @@ where I: AsyncRead + AsyncWrite,
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">State</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;State&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;reading&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">reading</span>)
             .<span class="ident">field</span>(<span class="string">&quot;writing&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">writing</span>)
@@ -2205,14 +2205,14 @@ where I: AsyncRead + AsyncWrite,
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Writing</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Init&quot;</span>),
-            <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="ident">enc</span>) <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">debug_tuple</span>(<span class="string">&quot;Body&quot;</span>)
+            <span class="ident">Writing</span>::<span class="ident">Init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Init&quot;</span>),
+            <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="kw-2">ref</span> <span class="ident">enc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">debug_tuple</span>(<span class="string">&quot;Body&quot;</span>)
                 .<span class="ident">field</span>(<span class="ident">enc</span>)
                 .<span class="ident">finish</span>(),
-            <span class="ident">Writing</span>::<span class="ident">KeepAlive</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;KeepAlive&quot;</span>),
-            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Closed&quot;</span>),
+            <span class="ident">Writing</span>::<span class="ident">KeepAlive</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;KeepAlive&quot;</span>),
+            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Closed&quot;</span>),
         }
     }
 }
@@ -2233,7 +2233,7 @@ where I: AsyncRead + AsyncWrite,
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">KA</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">KA</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KA</span> {
         <span class="ident">KA</span>::<span class="ident">Busy</span>
     }
 }
@@ -2251,7 +2251,7 @@ where I: AsyncRead + AsyncWrite,
         <span class="kw-2">*</span><span class="self">self</span> <span class="op">=</span> <span class="ident">KA</span>::<span class="ident">Disabled</span>;
     }
 
-    <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">KA</span> {
+    <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KA</span> {
         <span class="kw-2">*</span><span class="self">self</span>
     }
 }
@@ -2280,7 +2280,7 @@ where I: AsyncRead + AsyncWrite,
         <span class="self">self</span>.<span class="ident">keep_alive</span>.<span class="ident">disable</span>();
     }
 
-    <span class="kw">fn</span> <span class="ident">wants_keep_alive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">wants_keep_alive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">KA</span>::<span class="ident">Disabled</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">keep_alive</span>.<span class="ident">status</span>() {
             <span class="bool-val">false</span>
         } <span class="kw">else</span> {
@@ -2290,7 +2290,7 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="kw">fn</span> <span class="ident">try_keep_alive</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">reading</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">writing</span>) {
-            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">KeepAlive</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">KeepAlive</span>) <span class="op">=&gt;</span> {
+            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">KeepAlive</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">KeepAlive</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="ident">KA</span>::<span class="ident">Busy</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">keep_alive</span>.<span class="ident">status</span>() {
                     <span class="self">self</span>.<span class="ident">idle</span>();
                 } <span class="kw">else</span> {
@@ -2298,10 +2298,10 @@ where I: AsyncRead + AsyncWrite,
                 }
             },
             (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">Closed</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">KeepAlive</span>) <span class="op">|</span>
-            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">KeepAlive</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">Closed</span>) <span class="op">=&gt;</span> {
+            (<span class="kw-2">&amp;</span><span class="ident">Reading</span>::<span class="ident">KeepAlive</span>, <span class="kw-2">&amp;</span><span class="ident">Writing</span>::<span class="ident">Closed</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">close</span>()
             }
-            <span class="kw">_</span> <span class="op">=&gt;</span> ()
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> ()
         }
     }
 
@@ -2327,7 +2327,7 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">is_idle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_idle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">KA</span>::<span class="ident">Idle</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">keep_alive</span>.<span class="ident">status</span>() {
             <span class="bool-val">true</span>
         } <span class="kw">else</span> {
@@ -2335,17 +2335,17 @@ where I: AsyncRead + AsyncWrite,
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">is_read_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_read_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">reading</span> {
-            <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>
+            <span class="ident">Reading</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">is_write_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_write_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">writing</span> {
-            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>
+            <span class="ident">Writing</span>::<span class="ident">Closed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>
         }
     }
 }
@@ -2363,24 +2363,24 @@ where I: AsyncRead + AsyncWrite,
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tokio-proto&quot;</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>, <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">DebugFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">B</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span> {
-            <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="kw-2">ref</span> <span class="ident">body</span>, .. } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="kw-2">ref</span> <span class="ident">body</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Message&quot;</span>)
                     .<span class="ident">field</span>(<span class="string">&quot;body&quot;</span>, <span class="ident">body</span>)
                     .<span class="ident">finish</span>()
             },
-            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">chunk</span>) } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">chunk</span>) } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Body&quot;</span>)
                     .<span class="ident">field</span>(<span class="string">&quot;bytes&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">chunk</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>())
                     .<span class="ident">finish</span>()
             },
-            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Body&quot;</span>)
                     .<span class="ident">field</span>(<span class="string">&quot;bytes&quot;</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>::<span class="op">&lt;</span>()<span class="op">&gt;</span>)
                     .<span class="ident">finish</span>()
             },
-            <span class="ident">Frame</span>::<span class="ident">Error</span> { <span class="kw-2">ref</span> <span class="ident">error</span> } <span class="op">=&gt;</span> {
+            <span class="ident">Frame</span>::<span class="ident">Error</span> { <span class="kw-2">ref</span> <span class="ident">error</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Error&quot;</span>)
                     .<span class="ident">field</span>(<span class="string">&quot;error&quot;</span>, <span class="ident">error</span>)
                     .<span class="ident">finish</span>()
@@ -2414,19 +2414,19 @@ where I: AsyncRead + AsyncWrite,
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
 
         <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>().<span class="ident">unwrap</span>() {
-            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>, <span class="ident">body</span>: <span class="bool-val">false</span> })) <span class="op">=&gt;</span> {
+            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>, <span class="ident">body</span>: <span class="bool-val">false</span> })) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">message</span>, <span class="ident">MessageHead</span> {
                     <span class="ident">subject</span>: ::<span class="ident">proto</span>::<span class="ident">RequestLine</span>(::<span class="ident">Get</span>, <span class="ident">Uri</span>::<span class="ident">from_str</span>(<span class="string">&quot;/&quot;</span>).<span class="ident">unwrap</span>()),
                     .. <span class="ident">MessageHead</span>::<span class="ident">default</span>()
                 })
             },
-            <span class="ident">f</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not Frame::Message: {:?}&quot;</span>, <span class="ident">f</span>)
+            <span class="ident">f</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not Frame::Message: {:?}&quot;</span>, <span class="ident">f</span>)
         }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_parse_partial</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">good_message</span> <span class="op">=</span> <span class="string">b&quot;GET / HTTP/1.1\r\nHost: foo.bar\r\n\r\n&quot;</span>.<span class="ident">to_vec</span>();
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="ident">good_message</span>, <span class="number">10</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
@@ -2435,8 +2435,8 @@ where I: AsyncRead + AsyncWrite,
             <span class="kw">let</span> <span class="ident">async</span> <span class="op">=</span> <span class="ident">conn</span>.<span class="ident">poll</span>().<span class="ident">unwrap</span>();
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">async</span>.<span class="ident">is_ready</span>());
             <span class="kw">match</span> <span class="ident">async</span> {
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { .. })) <span class="op">=&gt;</span> (),
-                <span class="ident">f</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not Message: {:?}&quot;</span>, <span class="ident">f</span>),
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { .. })) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">f</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not Message: {:?}&quot;</span>, <span class="ident">f</span>),
             }
             <span class="prelude-val">Ok</span>(())
         }).<span class="ident">wait</span>();
@@ -2449,8 +2449,8 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">idle</span>();
 
         <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>().<span class="ident">unwrap</span>() {
-            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {},
-            <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not None: {:?}&quot;</span>, <span class="ident">other</span>)
+            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+            <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not None: {:?}&quot;</span>, <span class="ident">other</span>)
         }
     }
 
@@ -2461,22 +2461,22 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">idle</span>();
 
         <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-            <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="kw">if</span> <span class="ident">err</span>.<span class="ident">kind</span>() <span class="op">==</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">UnexpectedEof</span> <span class="op">=&gt;</span> {},
-            <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+            <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="kw">if</span> <span class="ident">err</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">UnexpectedEof</span> <span class="op">=</span><span class="op">&gt;</span> {},
+            <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
         }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_init_read_eof_busy</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="comment">// server ignores</span>
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_eof</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">busy</span>();
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>().<span class="ident">unwrap</span>() {
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {},
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="comment">// client</span>
@@ -2485,8 +2485,8 @@ where I: AsyncRead + AsyncWrite,
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">busy</span>();
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="kw">if</span> <span class="ident">err</span>.<span class="ident">kind</span>() <span class="op">==</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">UnexpectedEof</span> <span class="op">=&gt;</span> {},
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="kw">if</span> <span class="ident">err</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">UnexpectedEof</span> <span class="op">=</span><span class="op">&gt;</span> {},
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
             <span class="prelude-val">Ok</span>(())
         }).<span class="ident">wait</span>();
@@ -2494,7 +2494,7 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_body_finish_read_eof</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_eof</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ClientTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">busy</span>();
@@ -2502,16 +2502,16 @@ where I: AsyncRead + AsyncWrite,
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">reading</span> <span class="op">=</span> <span class="ident">Reading</span>::<span class="ident">Body</span>(<span class="ident">Decoder</span>::<span class="ident">length</span>(<span class="number">0</span>));
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> }))) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> }))) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="comment">// conn eofs, but tokio-proto will call poll() again, before calling flush()</span>
             <span class="comment">// the conn eof in this case is perfectly fine</span>
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
             <span class="prelude-val">Ok</span>(())
         }).<span class="ident">wait</span>();
@@ -2519,23 +2519,23 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_message_empty_body_read_eof</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="string">b&quot;HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n&quot;</span>.<span class="ident">to_vec</span>(), <span class="number">1024</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ClientTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">busy</span>();
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="ident">Writing</span>::<span class="ident">KeepAlive</span>;
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">body</span>: <span class="bool-val">false</span>, .. }))) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">body</span>: <span class="bool-val">false</span>, .. }))) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="comment">// conn eofs, but tokio-proto will call poll() again, before calling flush()</span>
             <span class="comment">// the conn eof in this case is perfectly fine</span>
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
             <span class="prelude-val">Ok</span>(())
         }).<span class="ident">wait</span>();
@@ -2543,30 +2543,30 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_read_body_end</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="string">b&quot;POST / HTTP/1.1\r\nContent-Length: 5\r\n\r\n12345&quot;</span>.<span class="ident">to_vec</span>(), <span class="number">1024</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">busy</span>();
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">body</span>: <span class="bool-val">true</span>, .. }))) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">body</span>: <span class="bool-val">true</span>, .. }))) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="kw">_</span>) }))) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="kw">_</span>) }))) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="comment">// When the body is done, `poll` MUST return a `Body` frame with chunk set to `None`</span>
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> }))) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> }))) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
 
             <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>() {
-                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> (),
-                <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
+                <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> (),
+                <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unexpected frame: {:?}&quot;</span>, <span class="ident">other</span>)
             }
             <span class="prelude-val">Ok</span>(())
         }).<span class="ident">wait</span>();
@@ -2579,8 +2579,8 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">close</span>();
 
         <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">poll</span>().<span class="ident">unwrap</span>() {
-            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {},
-            <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not None: {:?}&quot;</span>, <span class="ident">other</span>)
+            <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+            <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;frame is not None: {:?}&quot;</span>, <span class="ident">other</span>)
         }
     }
 
@@ -2588,7 +2588,7 @@ where I: AsyncRead + AsyncWrite,
     <span class="kw">fn</span> <span class="ident">test_conn_body_write_length</span>() {
         <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">pretty_env_logger</span>;
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">pretty_env_logger</span>::<span class="ident">try_init</span>();
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">0</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="kw">let</span> <span class="ident">max</span> <span class="op">=</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">io</span>::<span class="ident">DEFAULT_MAX_BUFFER_SIZE</span> <span class="op">+</span> <span class="number">4096</span>;
@@ -2613,7 +2613,7 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_body_write_chunked</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">4096</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="ident">Encoder</span>::<span class="ident">chunked</span>());
@@ -2626,7 +2626,7 @@ where I: AsyncRead + AsyncWrite,
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conn_body_flush</span>() {
-        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="kw">_</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">1024</span> <span class="op">*</span> <span class="number">1024</span> <span class="op">*</span> <span class="number">5</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="ident">Writing</span>::<span class="ident">Body</span>(<span class="ident">Encoder</span>::<span class="ident">length</span>(<span class="number">1024</span> <span class="op">*</span> <span class="number">1024</span>));
@@ -2656,14 +2656,14 @@ where I: AsyncRead + AsyncWrite,
             }
         }
 
-        <span class="kw">fn</span> <span class="ident">car</span>(<span class="ident">permit</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">NotifyHandle</span> {
+        <span class="kw">fn</span> <span class="ident">car</span>(<span class="ident">permit</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NotifyHandle</span> {
             <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Car</span> {
                 <span class="ident">permit</span>: <span class="ident">permit</span>,
             }).<span class="ident">into</span>()
         }
 
         <span class="comment">// test that once writing is done, unparks</span>
-        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">4096</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">reading</span> <span class="op">=</span> <span class="ident">Reading</span>::<span class="ident">KeepAlive</span>;
@@ -2677,7 +2677,7 @@ where I: AsyncRead + AsyncWrite,
 
 
         <span class="comment">// test that flushing when not waiting on read doesn&#39;t unpark</span>
-        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">4096</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">writing</span> <span class="op">=</span> <span class="ident">Writing</span>::<span class="ident">KeepAlive</span>;
@@ -2688,7 +2688,7 @@ where I: AsyncRead + AsyncWrite,
 
 
         <span class="comment">// test that flushing and writing isn&#39;t done doesn&#39;t unpark</span>
-        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">lazy</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">AsyncIo</span>::<span class="ident">new_buf</span>(<span class="macro">vec</span><span class="macro">!</span>[], <span class="number">4096</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">Conn</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">proto</span>::<span class="ident">Chunk</span>, <span class="ident">ServerTransaction</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">io</span>);
             <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">reading</span> <span class="op">=</span> <span class="ident">Reading</span>::<span class="ident">KeepAlive</span>;
@@ -2707,8 +2707,8 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">close</span>();
 
         <span class="kw">match</span> <span class="ident">conn</span>.<span class="ident">start_send</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="string">b&quot;foobar&quot;</span>.<span class="ident">to_vec</span>().<span class="ident">into</span>()) }) {
-            <span class="prelude-val">Err</span>(<span class="ident">_e</span>) <span class="op">=&gt;</span> {},
-            <span class="ident">other</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;did not return Err: {:?}&quot;</span>, <span class="ident">other</span>)
+            <span class="prelude-val">Err</span>(<span class="ident">_e</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+            <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;did not return Err: {:?}&quot;</span>, <span class="ident">other</span>)
         }
 
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">conn</span>.<span class="ident">state</span>.<span class="ident">is_write_closed</span>());
@@ -2725,5 +2725,5 @@ where I: AsyncRead + AsyncWrite,
         <span class="ident">conn</span>.<span class="ident">start_send</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="string">b&#39;a&#39;</span>].<span class="ident">into</span>()) }).<span class="ident">unwrap_err</span>();
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../../";window.currentCrate = "hyper";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script defer src="../../../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "hyper";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

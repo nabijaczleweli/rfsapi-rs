@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-proto-0.1.1/src/streaming/pipeline/advanced.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>advanced.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-proto-0.1.1/src/streaming/pipeline/advanced.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>advanced.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../tokio_proto/index.html'><div class='logo-container'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -458,7 +458,7 @@
 <span id="458">458</span>
 <span id="459">459</span>
 <span id="460">460</span>
-</pre><pre class="rust ">
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Provides the substrate for implementing pipelined, streaming protocols.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! In most cases, it&#39;s sufficient to work with `streaming::pipeline::{Client,</span>
@@ -485,10 +485,10 @@
     <span class="ident">run</span>: <span class="ident">bool</span>,
 
     <span class="comment">// Glues the service with the pipeline task</span>
-    <span class="ident">dispatch</span>: <span class="ident">BufferOne</span><span class="op">&lt;</span><span class="ident">DispatchSink</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">dispatch</span>: <span class="ident">BufferOne</span><span class="op">&lt;</span><span class="ident">DispatchSink</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="comment">// The `Sender` for the current request body stream</span>
-    <span class="ident">out_body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BodySender</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">BodyOut</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">out_body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BodySender</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">BodyOut</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="comment">// The response body stream</span>
     <span class="ident">in_body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Stream</span><span class="op">&gt;</span>,
@@ -525,32 +525,32 @@
 
     <span class="doccomment">/// Transport type</span>
     <span class="kw">type</span> <span class="ident">Transport</span>: <span class="ident">Transport</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Out</span>, <span class="self">Self</span>::<span class="ident">BodyOut</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span>,
-                              <span class="ident">SinkItem</span> <span class="op">=</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span>, <span class="self">Self</span>::<span class="ident">BodyIn</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>;
+                              <span class="ident">SinkItem</span> <span class="op">=</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span>, <span class="self">Self</span>::<span class="ident">BodyIn</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Mutable reference to the transport</span>
-    <span class="kw">fn</span> <span class="ident">transport</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>::<span class="ident">Transport</span>;
+    <span class="kw">fn</span> <span class="ident">transport</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>::<span class="ident">Transport</span>;
 
     <span class="doccomment">/// Process an out message</span>
-    <span class="kw">fn</span> <span class="ident">dispatch</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message</span>: <span class="ident">PipelineMessage</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Out</span>, <span class="ident">Body</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">BodyOut</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">dispatch</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message</span>: <span class="ident">PipelineMessage</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Out</span>, <span class="ident">Body</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">BodyOut</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
 
     <span class="doccomment">/// Poll the next completed message</span>
-    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PipelineMessage</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span>, <span class="self">Self</span>::<span class="ident">Stream</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PipelineMessage</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span>, <span class="self">Self</span>::<span class="ident">Stream</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// RPC currently in flight</span>
     <span class="doccomment">/// TODO: Get rid of</span>
-    <span class="kw">fn</span> <span class="ident">has_in_flight</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">has_in_flight</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 }
 
 <span class="kw">struct</span> <span class="ident">DispatchSink</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">inner</span>: <span class="ident">T</span>,
 }
 
-<span class="kw">type</span> <span class="ident">BodySender</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">E</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">BufferOne</span><span class="op">&lt;</span><span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">E</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>;
+<span class="kw">type</span> <span class="ident">BodySender</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">E</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">BufferOne</span><span class="op">&lt;</span><span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Pipeline</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Dispatch</span> {
     <span class="doccomment">/// Create a new pipeline `Pipeline` dispatcher with the given service and</span>
     <span class="doccomment">/// transport</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">dispatch</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">Pipeline</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">dispatch</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pipeline</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Add `Sink` impl for `Dispatch`</span>
         <span class="kw">let</span> <span class="ident">dispatch</span> <span class="op">=</span> <span class="ident">DispatchSink</span> { <span class="ident">inner</span>: <span class="ident">dispatch</span> };
 
@@ -567,11 +567,11 @@
     }
 
     <span class="doccomment">/// Returns true if the pipeline server dispatch has nothing left to do</span>
-    <span class="kw">fn</span> <span class="ident">is_done</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="op">!</span><span class="self">self</span>.<span class="ident">run</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">is_flushed</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">has_in_flight</span>()
+    <span class="kw">fn</span> <span class="ident">is_done</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="op">!</span><span class="self">self</span>.<span class="ident">run</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">is_flushed</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">has_in_flight</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">read_out_frames</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read_out_frames</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">while</span> <span class="self">self</span>.<span class="ident">run</span> {
             <span class="comment">// Return true if the pipeliner can process new outbound frames</span>
             <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">check_out_body_stream</span>() {
@@ -588,23 +588,23 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">check_out_body_stream</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">check_out_body_stream</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">out_body</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">body</span>) <span class="op">=&gt;</span> <span class="ident">body</span>,
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="bool-val">true</span>,
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">body</span>,
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="bool-val">true</span>,
         };
 
         <span class="ident">body</span>.<span class="ident">poll_ready</span>().<span class="ident">is_ready</span>()
     }
 
     <span class="kw">fn</span> <span class="ident">process_out_frame</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-                         <span class="ident">frame</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Out</span>, <span class="ident">T</span>::<span class="ident">BodyOut</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>)
-                         <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+                         <span class="ident">frame</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Out</span>, <span class="ident">T</span>::<span class="ident">BodyOut</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>)
+                         <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;process_out_frame&quot;</span>);
         <span class="comment">// At this point, the service &amp; transport are ready to process the</span>
         <span class="comment">// frame, no matter what it is.</span>
         <span class="kw">match</span> <span class="ident">frame</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>, <span class="ident">body</span> }) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>, <span class="ident">body</span> }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">body</span> {
                     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;read out message with body&quot;</span>);
 
@@ -635,13 +635,13 @@
                     }
                 }
             }
-            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span> }) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span> }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">match</span> <span class="ident">chunk</span> {
-                    <span class="prelude-val">Some</span>(<span class="ident">chunk</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Some</span>(<span class="ident">chunk</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;read out body chunk&quot;</span>);
                         <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">process_out_body_chunk</span>(<span class="ident">chunk</span>));
                     }
-                    <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
+                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;read out body EOF&quot;</span>);
                         <span class="comment">// Drop the sender.</span>
                         <span class="comment">// TODO: Ensure a sender exists</span>
@@ -649,14 +649,14 @@
                     }
                 }
             }
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;read None&quot;</span>);
                 <span class="comment">// At this point, we just return. This works</span>
                 <span class="comment">// because tick() will be called again and go</span>
                 <span class="comment">// through the read-cycle again.</span>
                 <span class="self">self</span>.<span class="ident">run</span> <span class="op">=</span> <span class="bool-val">false</span>;
             }
-            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Error</span> { .. }) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">Frame</span>::<span class="ident">Error</span> { .. }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// At this point, the transport is toast, there</span>
                 <span class="comment">// isn&#39;t much else that we can do. Killing the task</span>
                 <span class="comment">// will cause all in-flight requests to abort, but</span>
@@ -668,24 +668,24 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">process_out_body_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chunk</span>: <span class="ident">T</span>::<span class="ident">BodyOut</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">process_out_body_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chunk</span>: <span class="ident">T</span>::<span class="ident">BodyOut</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;process_out_body_chunk&quot;</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reset</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">out_body</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">body</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;sending a chunk&quot;</span>);
 
                 <span class="comment">// Try sending the out body chunk</span>
                 <span class="kw">match</span> <span class="ident">body</span>.<span class="ident">start_send</span>(<span class="prelude-val">Ok</span>(<span class="ident">chunk</span>)) {
-                    <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>) <span class="op">=&gt;</span> <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;immediately done&quot;</span>),
-                    <span class="prelude-val">Err</span>(<span class="ident">_e</span>) <span class="op">=&gt;</span> <span class="ident">reset</span> <span class="op">=</span> <span class="bool-val">true</span>, <span class="comment">// interest canceled</span>
-                    <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="kw">_</span>)) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;immediately done&quot;</span>),
+                    <span class="prelude-val">Err</span>(<span class="ident">_e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">reset</span> <span class="op">=</span> <span class="bool-val">true</span>, <span class="comment">// interest canceled</span>
+                    <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="comment">// poll_ready() is checked before entering this path</span>
                         <span class="macro">unreachable</span><span class="macro">!</span>();
                     }
                 }
             }
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;interest canceled&quot;</span>);
                 <span class="comment">// The rx half canceled interest, there is nothing else to do</span>
             }
@@ -696,7 +696,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">write_in_frames</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write_in_frames</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;write_in_frames&quot;</span>);
         <span class="kw">while</span> <span class="self">self</span>.<span class="ident">dispatch</span>.<span class="ident">poll_ready</span>().<span class="ident">is_ready</span>() {
             <span class="comment">// Ensure the current in body is fully written</span>
@@ -708,31 +708,31 @@
 
             <span class="comment">// Write the next in-flight in message</span>
             <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">dispatch</span>.<span class="ident">get_mut</span>().<span class="ident">inner</span>.<span class="ident">poll</span>()) {
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">message</span>))) <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">message</span>))) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;   --&gt; got message&quot;</span>);
                     <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">write_in_message</span>(<span class="prelude-val">Ok</span>(<span class="ident">message</span>)));
                 }
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>))) <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>))) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;   --&gt; got error&quot;</span>);
                     <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">write_in_message</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>)));
                 }
-                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {
+                <span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;   --&gt; got None&quot;</span>);
                     <span class="comment">// The service is done with the connection.</span>
                     <span class="kw">break</span>;
                 }
                 <span class="comment">// Nothing to dispatch</span>
-                <span class="ident">Async</span>::<span class="ident">NotReady</span> <span class="op">=&gt;</span> <span class="kw">break</span>,
+                <span class="ident">Async</span>::<span class="ident">NotReady</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
             }
         }
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">write_in_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">In</span>, <span class="ident">T</span>::<span class="ident">Stream</span><span class="op">&gt;</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write_in_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">In</span>, <span class="ident">T</span>::<span class="ident">Stream</span><span class="op">&gt;</span>, <span class="ident">T</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;write_in_message&quot;</span>);
         <span class="kw">match</span> <span class="ident">message</span> {
-            <span class="prelude-val">Ok</span>(<span class="ident">Message</span>::<span class="ident">WithoutBody</span>(<span class="ident">val</span>)) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Message</span>::<span class="ident">WithoutBody</span>(<span class="ident">val</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;got in_flight value without body&quot;</span>);
                 <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>: <span class="ident">val</span>, <span class="ident">body</span>: <span class="bool-val">false</span> };
                 <span class="macro">try</span><span class="macro">!</span>(<span class="ident">assert_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">dispatch</span>, <span class="ident">msg</span>));
@@ -743,7 +743,7 @@
                 <span class="comment">// Track the response body</span>
                 <span class="self">self</span>.<span class="ident">in_body</span> <span class="op">=</span> <span class="prelude-val">None</span>;
             }
-            <span class="prelude-val">Ok</span>(<span class="ident">Message</span>::<span class="ident">WithBody</span>(<span class="ident">val</span>, <span class="ident">body</span>)) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Message</span>::<span class="ident">WithBody</span>(<span class="ident">val</span>, <span class="ident">body</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;got in_flight value with body&quot;</span>);
                 <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="ident">Frame</span>::<span class="ident">Message</span> { <span class="ident">message</span>: <span class="ident">val</span>, <span class="ident">body</span>: <span class="bool-val">true</span> };
                 <span class="macro">try</span><span class="macro">!</span>(<span class="ident">assert_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">dispatch</span>, <span class="ident">msg</span>));
@@ -754,7 +754,7 @@
                 <span class="comment">// Track the response body</span>
                 <span class="self">self</span>.<span class="ident">in_body</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">body</span>);
             }
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;got in_flight error&quot;</span>);
                 <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="ident">Frame</span>::<span class="ident">Error</span> { <span class="ident">error</span>: <span class="ident">e</span> };
                 <span class="macro">try</span><span class="macro">!</span>(<span class="ident">assert_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">dispatch</span>, <span class="ident">msg</span>));
@@ -765,7 +765,7 @@
     }
 
     <span class="comment">// Returns true if the response body is fully written</span>
-    <span class="kw">fn</span> <span class="ident">write_in_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write_in_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;write_in_body&quot;</span>);
 
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">in_body</span>.<span class="ident">is_some</span>() {
@@ -777,19 +777,19 @@
                 }
 
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">in_body</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>().<span class="ident">poll</span>() {
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">chunk</span>))) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">chunk</span>))) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">try</span><span class="macro">!</span>(<span class="ident">assert_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">dispatch</span>,
                                          <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">Some</span>(<span class="ident">chunk</span>) }));
                     }
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(<span class="prelude-val">None</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">try</span><span class="macro">!</span>(<span class="ident">assert_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">dispatch</span>,
                                          <span class="ident">Frame</span>::<span class="ident">Body</span> { <span class="ident">chunk</span>: <span class="prelude-val">None</span> }));
                         <span class="kw">break</span>;
                     }
-                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">unimplemented</span><span class="macro">!</span>();
                     }
-                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;not ready&quot;</span>);
                         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
                     }
@@ -801,7 +801,7 @@
         <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">is_flushed</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">dispatch</span>.<span class="ident">poll_complete</span>()).<span class="ident">is_ready</span>();
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">out_body</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">out_body</span> {
@@ -817,7 +817,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">has_in_flight</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">has_in_flight</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">dispatch</span>.<span class="ident">get_ref</span>().<span class="ident">inner</span>.<span class="ident">has_in_flight</span>()
     }
 }
@@ -827,7 +827,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
     <span class="comment">// Tick the pipeline state machine</span>
-    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Pipeline::tick&quot;</span>);
 
         <span class="comment">// Always tick the transport first</span>
@@ -872,7 +872,7 @@
           <span class="ident">T</span>::<span class="ident">Error</span>: <span class="ident">fmt</span>::<span class="ident">Debug</span>,
           <span class="ident">T</span>::<span class="ident">Stream</span>: <span class="ident">fmt</span>::<span class="ident">Debug</span>,
 {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;Pipeline&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;run&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">run</span>)
             .<span class="ident">field</span>(<span class="string">&quot;dispatch&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">dispatch</span>)
@@ -888,36 +888,36 @@
     <span class="kw">type</span> <span class="ident">SinkError</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
     <span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="self">Self</span>::<span class="ident">SinkItem</span>)
-                  <span class="op">-&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">SinkItem</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+                  <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">SinkItem</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>
     {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">transport</span>().<span class="ident">start_send</span>(<span class="ident">item</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">transport</span>().<span class="ident">poll_complete</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">transport</span>().<span class="ident">close</span>()
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">DispatchSink</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;DispatchSink&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;inner&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>)
             .<span class="ident">finish</span>()
     }
 }
 
-<span class="kw">fn</span> <span class="ident">assert_send</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Sink</span><span class="op">&gt;</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">S</span>, <span class="ident">item</span>: <span class="ident">S</span>::<span class="ident">SinkItem</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">S</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">assert_send</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Sink</span><span class="op">&gt;</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">S</span>, <span class="ident">item</span>: <span class="ident">S</span>::<span class="ident">SinkItem</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">S</span>::<span class="ident">SinkError</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">start_send</span>(<span class="ident">item</span>)) {
-        <span class="ident">AsyncSink</span>::<span class="ident">Ready</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(()),
-        <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+        <span class="ident">AsyncSink</span>::<span class="ident">Ready</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
+        <span class="ident">AsyncSink</span>::<span class="ident">NotReady</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;sink reported itself as ready after `poll_ready` but was \
                     then unable to accept a message&quot;</span>)
         }
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../../";window.currentCrate = "tokio_proto";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script defer src="../../../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "tokio_proto";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

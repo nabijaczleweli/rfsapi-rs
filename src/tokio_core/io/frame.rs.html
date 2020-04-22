@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-core-0.1.17/src/io/frame.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>frame.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-core-0.1.17/src/io/frame.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>frame.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../tokio_core/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -586,7 +586,7 @@
 <span id="586">586</span>
 <span id="587">587</span>
 <span id="588">588</span>
-</pre><pre class="rust ">
+</pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">hash</span>;
@@ -609,7 +609,7 @@
 <span class="doccomment">/// copied to complete the operation.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EasyBuf</span> {
-    <span class="ident">buf</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">buf</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">start</span>: <span class="ident">usize</span>,
     <span class="ident">end</span>: <span class="ident">usize</span>,
 }
@@ -623,12 +623,12 @@
 
 <span class="kw">impl</span> <span class="ident">EasyBuf</span> {
     <span class="doccomment">/// Creates a new EasyBuf with no data and the default capacity.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBuf</span> {
         <span class="ident">EasyBuf</span>::<span class="ident">with_capacity</span>(<span class="ident">INITIAL_CAPACITY</span>)
     }
 
     <span class="doccomment">/// Creates a new EasyBuf with `cap` capacity.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">cap</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">cap</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBuf</span> {
         <span class="ident">EasyBuf</span> {
             <span class="ident">buf</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">cap</span>)),
             <span class="ident">start</span>: <span class="number">0</span>,
@@ -644,9 +644,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will panic if `start` is out of bounds for the underlying</span>
     <span class="doccomment">/// slice or if it comes after the `end` configured in this window.</span>
-    <span class="kw">fn</span> <span class="ident">set_start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">start</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;=</span> <span class="self">self</span>.<span class="ident">end</span>);
+    <span class="kw">fn</span> <span class="ident">set_start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">start</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span> {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">end</span>);
         <span class="self">self</span>.<span class="ident">start</span> <span class="op">=</span> <span class="ident">start</span>;
         <span class="self">self</span>
     }
@@ -659,20 +659,20 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will panic if `end` is out of bounds for the underlying</span>
     <span class="doccomment">/// slice or if it comes after the `end` configured in this window.</span>
-    <span class="kw">fn</span> <span class="ident">set_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">end</span> <span class="op">&lt;=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">len</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">start</span> <span class="op">&lt;=</span> <span class="ident">end</span>);
+    <span class="kw">fn</span> <span class="ident">set_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span> {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">len</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">end</span>);
         <span class="self">self</span>.<span class="ident">end</span> <span class="op">=</span> <span class="ident">end</span>;
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Returns the number of bytes contained in this `EasyBuf`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="self">self</span>.<span class="ident">end</span> <span class="op">-</span> <span class="self">self</span>.<span class="ident">start</span>
     }
 
     <span class="doccomment">/// Returns the inner contents of this `EasyBuf` as a slice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 
@@ -687,7 +687,7 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Panics if `at &gt; len`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">split_off</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">split_off</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBuf</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">other</span> <span class="op">=</span> <span class="ident">EasyBuf</span> { <span class="ident">buf</span>: <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">clone</span>(), ..<span class="kw-2">*</span><span class="self">self</span> };
         <span class="kw">let</span> <span class="ident">idx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start</span> <span class="op">+</span> <span class="ident">at</span>;
         <span class="ident">other</span>.<span class="ident">set_start</span>(<span class="ident">idx</span>);
@@ -706,7 +706,7 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Panics if `at &gt; len`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain_to</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain_to</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBuf</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">other</span> <span class="op">=</span> <span class="ident">EasyBuf</span> { <span class="ident">buf</span>: <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">clone</span>(), ..<span class="kw-2">*</span><span class="self">self</span> };
         <span class="kw">let</span> <span class="ident">idx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start</span> <span class="op">+</span> <span class="ident">at</span>;
         <span class="ident">other</span>.<span class="ident">set_end</span>(<span class="ident">idx</span>);
@@ -728,7 +728,7 @@
     <span class="doccomment">/// The returned `EasyBufMut` type implement `Deref` and `DerefMut` to</span>
     <span class="doccomment">/// `Vec&lt;u8&gt;` can the byte buffer can be manipulated using the standard</span>
     <span class="doccomment">/// `Vec&lt;u8&gt;` methods.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">EasyBufMut</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBufMut</span> {
         <span class="comment">// Fast path if we can get mutable access to our own current</span>
         <span class="comment">// buffer.</span>
         <span class="comment">//</span>
@@ -755,7 +755,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">buf</span>[<span class="self">self</span>.<span class="ident">start</span>..<span class="self">self</span>.<span class="ident">end</span>]
     }
 }
@@ -763,19 +763,19 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Deref</span> <span class="kw">for</span> <span class="ident">EasyBufMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">buf</span>
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">DerefMut</span> <span class="kw">for</span> <span class="ident">EasyBufMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">deref_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deref_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">buf</span>
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">EasyBuf</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EasyBuf</span> {
         <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">vec</span>.<span class="ident">len</span>();
         <span class="ident">EasyBuf</span> {
             <span class="ident">buf</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">vec</span>),
@@ -785,20 +785,20 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">as_slice</span>().<span class="ident">eq</span>(<span class="ident">other</span>.<span class="ident">as_ref</span>())
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Ord</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-&gt;</span> <span class="ident">cmp</span>::<span class="ident">Ordering</span> {
+    <span class="kw">fn</span> <span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cmp</span>::<span class="ident">Ordering</span> {
         <span class="self">self</span>.<span class="ident">as_slice</span>().<span class="ident">cmp</span>(<span class="ident">other</span>.<span class="ident">as_slice</span>())
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span> <span class="ident">PartialOrd</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">partial_cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cmp</span>::<span class="ident">Ordering</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">PartialOrd</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">fn</span> <span class="ident">partial_cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cmp</span>::<span class="ident">Ordering</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">as_slice</span>().<span class="ident">partial_cmp</span>(<span class="ident">other</span>.<span class="ident">as_ref</span>())
     }
 }
@@ -816,7 +816,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_ref</span>();
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">len</span>();
         <span class="kw">if</span> <span class="ident">len</span> <span class="op">&lt;</span> <span class="number">10</span> {
@@ -827,8 +827,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
-    <span class="kw">fn</span> <span class="ident">into</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EasyBuf</span> {
+    <span class="kw">fn</span> <span class="ident">into</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
         <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="self">self</span>.<span class="ident">get_mut</span>().<span class="ident">buf</span>, <span class="macro">vec</span><span class="macro">!</span>[])
     }
 }
@@ -871,7 +871,7 @@
     <span class="doccomment">/// Finally, if the bytes in the buffer are malformed then an error is</span>
     <span class="doccomment">/// returned indicating why. This informs `Framed` that the stream is now</span>
     <span class="doccomment">/// corrupt and should be terminated.</span>
-    <span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span><span class="op">&gt;&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// A default method available to be called when there are no more bytes</span>
     <span class="doccomment">/// available to be read from the underlying I/O.</span>
@@ -879,10 +879,10 @@
     <span class="doccomment">/// This method defaults to calling `decode` and returns an error if</span>
     <span class="doccomment">/// `Ok(None)` is returned. Typically this doesn&#39;t need to be implemented</span>
     <span class="doccomment">/// unless the framing protocol differs near the end of the stream.</span>
-    <span class="kw">fn</span> <span class="ident">decode_eof</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">decode_eof</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EasyBuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">In</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">decode</span>(<span class="ident">buf</span>)) {
-            <span class="prelude-val">Some</span>(<span class="ident">frame</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">frame</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">Other</span>,
+            <span class="prelude-val">Some</span>(<span class="ident">frame</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">frame</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">Other</span>,
                                        <span class="string">&quot;bytes remaining on stream&quot;</span>)),
         }
     }
@@ -892,7 +892,7 @@
     <span class="doccomment">/// This method will encode `msg` into the byte buffer provided by `buf`.</span>
     <span class="doccomment">/// The `buf` provided is an internal buffer of the `Framed` instance and</span>
     <span class="doccomment">/// will be written out when possible.</span>
-    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="self">Self</span>::<span class="ident">Out</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="self">Self</span>::<span class="ident">Out</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// A unified `Stream` and `Sink` interface to an underlying `Io` object, using</span>
@@ -913,14 +913,14 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">C</span>::<span class="ident">In</span>;
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
-    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span>::<span class="ident">In</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span>::<span class="ident">In</span><span class="op">&gt;</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
             <span class="comment">// If the read buffer has any pending data, then it could be</span>
             <span class="comment">// possible that `decode` will return a new frame. We leave it to</span>
             <span class="comment">// the decoder to optimize detecting that more data is required.</span>
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_readable</span> {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">eof</span> {
-                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
+                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>.<span class="ident">into</span>())
                     } <span class="kw">else</span> {
                         <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">codec</span>.<span class="ident">decode_eof</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">rd</span>));
@@ -943,13 +943,13 @@
             <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">len</span>();
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">upstream</span>.<span class="ident">read_to_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">get_mut</span>());
             <span class="kw">match</span> <span class="ident">ret</span> {
-                <span class="prelude-val">Ok</span>(<span class="ident">_n</span>) <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">eof</span> <span class="op">=</span> <span class="bool-val">true</span>,
-                <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">WouldBlock</span> <span class="op">=&gt;</span> {
-                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">before</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">_n</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">eof</span> <span class="op">=</span> <span class="bool-val">true</span>,
+                <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">WouldBlock</span> <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">rd</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">before</span> {
                         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">NotReady</span>)
                     }
                 }
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
             }
             <span class="self">self</span>.<span class="ident">is_readable</span> <span class="op">=</span> <span class="bool-val">true</span>;
         }
@@ -960,7 +960,7 @@
     <span class="kw">type</span> <span class="ident">SinkItem</span> <span class="op">=</span> <span class="ident">C</span>::<span class="ident">Out</span>;
     <span class="kw">type</span> <span class="ident">SinkError</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>;
 
-    <span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident">C</span>::<span class="ident">Out</span>) <span class="op">-&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="ident">C</span>::<span class="ident">Out</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident">C</span>::<span class="ident">Out</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StartSend</span><span class="op">&lt;</span><span class="ident">C</span>::<span class="ident">Out</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="comment">// If the buffer is already over 8KiB, then attempt to flush it. If after flushing it&#39;s</span>
         <span class="comment">// *still* over 8KiB, then apply backpressure (reject the send).</span>
         <span class="kw">const</span> <span class="ident">BACKPRESSURE_BOUNDARY</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="ident">INITIAL_CAPACITY</span>;
@@ -975,13 +975,13 @@
         <span class="prelude-val">Ok</span>(<span class="ident">AsyncSink</span>::<span class="ident">Ready</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;flushing framed transport&quot;</span>);
 
         <span class="kw">while</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">wr</span>.<span class="ident">is_empty</span>() {
             <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;writing; remaining={}&quot;</span>, <span class="self">self</span>.<span class="ident">wr</span>.<span class="ident">len</span>());
             <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="macro">try_nb</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">upstream</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">wr</span>));
-            <span class="kw">if</span> <span class="ident">n</span> <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">if</span> <span class="ident">n</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">WriteZero</span>,
                                           <span class="string">&quot;failed to write frame to transport&quot;</span>));
             }
@@ -995,13 +995,13 @@
         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(()));
     }
 
-    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">poll_complete</span>());
         <span class="prelude-val">Ok</span>(().<span class="ident">into</span>())
     }
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">framed</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>(<span class="ident">io</span>: <span class="ident">T</span>, <span class="ident">codec</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">Framed</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">framed</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>(<span class="ident">io</span>: <span class="ident">T</span>, <span class="ident">codec</span>: <span class="ident">C</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Framed</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span> {
     <span class="ident">Framed</span> {
         <span class="ident">upstream</span>: <span class="ident">io</span>,
         <span class="ident">codec</span>: <span class="ident">codec</span>,
@@ -1019,7 +1019,7 @@
     <span class="doccomment">/// Note that care should be taken to not tamper with the underlying stream</span>
     <span class="doccomment">/// of data coming in as it may corrupt the stream of frames otherwise being</span>
     <span class="doccomment">/// worked with.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">upstream</span>
     }
 
@@ -1029,7 +1029,7 @@
     <span class="doccomment">/// Note that care should be taken to not tamper with the underlying stream</span>
     <span class="doccomment">/// of data coming in as it may corrupt the stream of frames otherwise being</span>
     <span class="doccomment">/// worked with.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">upstream</span>
     }
 
@@ -1038,7 +1038,7 @@
     <span class="doccomment">/// Note that care should be taken to not tamper with the underlying stream</span>
     <span class="doccomment">/// of data coming in as it may corrupt the stream of frames otherwise being</span>
     <span class="doccomment">/// worked with.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">T</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
         <span class="self">self</span>.<span class="ident">upstream</span>
     }
 }
@@ -1145,7 +1145,7 @@
         <span class="kw">let</span> <span class="ident">result</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">buf</span>.<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">reference</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="number">3u8</span>..<span class="number">9u8</span>).<span class="ident">collect</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">result</span>, <span class="ident">reference</span>);
-        <span class="kw">let</span> <span class="ident">original_reference</span>: <span class="ident">EasyBuf</span> <span class="op">=</span>(<span class="number">0u8</span>..<span class="number">10u8</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>().<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="ident">original_reference</span>: <span class="ident">EasyBuf</span> <span class="op">=</span>(<span class="number">0u8</span>..<span class="number">10u8</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">into</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">original</span>.<span class="ident">as_ref</span>(), <span class="ident">original_reference</span>.<span class="ident">as_ref</span>());
         <span class="kw">let</span> <span class="ident">new_pointer</span> <span class="op">=</span> <span class="ident">result</span>.<span class="ident">as_ptr</span>();
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">original_pointer</span>, <span class="ident">new_pointer</span>, <span class="string">&quot;A new vec should be allocated&quot;</span>);
@@ -1153,19 +1153,19 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">easybuf_equality_same_underlying_vec</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>().<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">into</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buf</span>, <span class="ident">buf</span>);
         <span class="kw">let</span> <span class="ident">other</span> <span class="op">=</span> <span class="ident">buf</span>.<span class="ident">drain_to</span>(<span class="number">5</span>);
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">buf</span>, <span class="ident">other</span>);
 
-        <span class="kw">let</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">5</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>().<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">5</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">into</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buf</span>, <span class="ident">other</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">easybuf_equality_different_underlying_vec</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>().<span class="ident">into</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">other</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>().<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">other</span>: <span class="ident">EasyBuf</span> <span class="op">=</span> (<span class="number">0u8</span>..<span class="number">10</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">into</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buf</span>, <span class="ident">other</span>);
 
         <span class="ident">buf</span> <span class="op">=</span> <span class="ident">buf</span>.<span class="ident">drain_to</span>(<span class="number">5</span>);
@@ -1175,5 +1175,5 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buf</span>, <span class="ident">other</span>);
     }
 }
-</pre>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "tokio_core";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "tokio_core";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
