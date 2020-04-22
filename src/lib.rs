@@ -2,6 +2,166 @@
 //!
 //! This library is to enable both servers and clients to use the RFSAPI,
 //! see [D'Oh](https://github.com/thecoshman/doh) for usage example.
+//!
+//! # Format spec
+//!
+//! Requests to a servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made
+//! by doing a GET request and setting the `X-Raw-Filesystem-API` header to `1`.
+//!
+//! The header has no bearing on non-GET requests.
+//!
+//! If the server supports RFSAPI, the response will have `X-Raw-Filesystem-API` header also set to `1`,
+//! the `Content-Type` should be JSON (`application/json; charset=utf8`).
+//!
+//! RFSAPI responses do *not* return file contents. Use an undecorated GET instead.
+//!
+//! The response body is a JSON object of type [`FilesetData`](struct.FilesetData.html) in the following format:
+//! ```json
+//! {
+//!   "writes_supported": boolean,
+//!   "is_root": boolean,
+//!   "is_file": boolean,
+//!   "files": Array<RawFileData>
+//! }
+//! ```
+//!
+//! 1. `writes_supported` specifies if the server supports/allows write requests like PUT or DELETE.
+//! 2. `is_root` specifies whether the requested path is the root directory of the server – i.e. if there are no directories above it; `false` for all files.
+//! 3. `is_file` specifies whether the requested path is a file or a directory.
+//! 4. `files` is the list of files in the listing and will have only one member if `is_file` is true —
+//!    this array is not sorted in any particular order.
+//!
+//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing.
+//! ```json
+//! {
+//!   "mime_type": MIME type as string,
+//!   "name": string,
+//!   "last_modified": RFC3339 Date as string,
+//!   "size": integer,
+//!   "is_file": boolean
+//! }
+//! ```
+//!
+//! 1. `mime_type` is the type of the requested entity – `text/plain` for plaintext files, `application/zip` for ZIPs, &c;
+//!    `text/directory` is used for directories.
+//! 2. `name` is the filename, not including the path name up to there.
+//! 3. `last_modified` is the file's last modification date in [RFC3339](https://tools.ietf.org/html/rfc3339) format
+//!    (`2012-02-22T07:53:18-07:00`, `2012-02-22T14:53:18.42Z`, &c.). The time-zone is implementation-defined –
+//!    `http` always normalises to UTC.
+//! 4. `size` is the file's size in bytes, or `0` for directories.
+//! 5. `is_file` specifies whether the entity is a file or a directory.
+//!
+//! # Examples
+//!
+//! Given the following tree at the root of the server, running on port 8000:
+//! ```plaintext
+//! /
+//! ├── a.txt
+//! ├── ndis2-15.6.1.zip
+//! └── works
+//!     └── b.txt
+//! ```
+//!
+//! Then the metadata `curl -v -H "X-Raw-Filesystem-API: 1" 127.0.0.1:8000` invocation might look something like this:
+//! ```plaintext
+//! * Expire in 0 ms for 6 (transfer 0x55dc328b3e80)
+//! *   Trying 127.0.0.1...
+//! * TCP_NODELAY set
+//! * Expire in 200 ms for 4 (transfer 0x55dc328b3e80)
+//! * Connected to 127.0.0.1 (127.0.0.1) port 8000 (#0)
+//! > GET / HTTP/1.1
+//! > Host: 127.0.0.1:8000
+//! > User-Agent: curl/7.64.0
+//! > Accept: */*
+//! > X-Raw-Filesystem-API: 1
+//! >
+//! < HTTP/1.1 200 OK
+//! < Server: http/1.9.2
+//! < X-Raw-Filesystem-API: 1
+//! < Content-Type: application/json; charset=utf-8
+//! < Content-Length: 843
+//! < Date: Wed, 22 Apr 2020 17:46:51 GMT
+//! <
+//! * Connection #0 to host 127.0.0.1 left intact
+//! ```
+//!
+//! Note:
+//!   * The server returned `X-Raw-Filesystem-API: 1`
+//!   * The server returned `Content-Type: application/json; charset=utf-8`
+//!
+//! So we can be sure that the response body will be an RFSAPI `FilesetData`:
+//! ```json
+//! {
+//!   "writes_supported": false,
+//!   "is_root": true,
+//!   "is_file": false,
+//!   "files": [
+//!     {
+//!       "mime_type": "application/zip",
+//!       "name": "ndis2-15.6.1.zip",
+//!       "last_modified": "2020-04-13T19:12:22.695457919Z",
+//!       "size": 31387,
+//!       "is_file": true
+//!     },
+//!     {
+//!       "mime_type": "text/directory",
+//!       "name": "works",
+//!       "last_modified": "2020-04-22T13:03:33.898025702Z",
+//!       "size": 0,
+//!       "is_file": false
+//!     },
+//!     {
+//!       "mime_type": "text/plain",
+//!       "name": "a.txt",
+//!       "last_modified": "2020-04-22T13:02:57.928406978Z",
+//!       "size": 7,
+//!       "is_file": true
+//!     }
+//!   ]
+//! }
+//! ```
+//!
+//! We can verify the size, for example, with `curl 127.0.0.1:8000/a.txt | wc -c`, which returns
+//! ```plaintext
+//! 7
+//! ```
+//!
+//! Say we append some data to `a.txt`, or just want to check if it was modified;
+//! `curl -H "X-Raw-Filesystem-API: 1" 127.0.0.1:8000/a.txt` might give us:
+//! ```json
+//! {
+//!   "writes_supported": false,
+//!   "is_root": false,
+//!   "is_file": true,
+//!   "files": [
+//!     {
+//!       "mime_type": "text/plain",
+//!       "name": "a.txt",
+//!       "last_modified": "2020-04-22T17:55:18.159945230Z",
+//!       "size": 12,
+//!       "is_file": true
+//!     }
+//!   ]
+//! }
+//! ```
+//!
+//! To see inside the `works` directory we can `curl -H "X-Raw-Filesystem-API: 1" 127.0.0.1:8000/works`:
+//! ```json
+//! {
+//!   "writes_supported": false,
+//!   "is_root": false,
+//!   "is_file": false,
+//!   "files": [
+//!     {
+//!       "mime_type": "text/plain",
+//!       "name": "b.txt",
+//!       "last_modified": "2020-04-22T13:03:33.898026135Z",
+//!       "size": 13,
+//!       "is_file": true
+//!     }
+//!   ]
+//! }
+//! ```
 
 
 #[macro_use]
