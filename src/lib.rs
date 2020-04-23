@@ -3,9 +3,10 @@
 //! This library is to enable both servers and clients to use the RFSAPI,
 //! see [D'Oh](https://github.com/thecoshman/doh) for usage example.
 //!
+//! <!-- Update relevant sexion in README, too -->
 //! # Format spec
 //!
-//! Requests to a servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made
+//! Requests to servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made
 //! by doing a GET request and setting the `X-Raw-Filesystem-API` header to `1`.
 //!
 //! The header has no bearing on non-GET requests.
@@ -31,7 +32,7 @@
 //! 4. `files` is the list of files in the listing and will have only one member if `is_file` is true —
 //!    this array is not sorted in any particular order.
 //!
-//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing.
+//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing:
 //! ```json
 //! {
 //!   "mime_type": MIME type as string,
@@ -62,7 +63,7 @@
 //!     └── b.txt
 //! ```
 //!
-//! Then the metadata `curl -v -H "X-Raw-Filesystem-API: 1" 127.0.0.1:8000` invocation might look something like this:
+//! Then the metadata of a `curl -v -H "X-Raw-Filesystem-API: 1" 127.0.0.1:8000` invocation might look something like this:
 //! ```plaintext
 //! * Expire in 0 ms for 6 (transfer 0x55dc328b3e80)
 //! *   Trying 127.0.0.1...
