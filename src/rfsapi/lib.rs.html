@@ -385,15 +385,17 @@
 <span id="385">385</span>
 <span id="386">386</span>
 <span id="387">387</span>
+<span id="388">388</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Raw Filesystem API for Rust — enable simpler browsing with ease</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This library is to enable both servers and clients to use the RFSAPI,</span>
 <span class="doccomment">//! see [D&#39;Oh](https://github.com/thecoshman/doh) for usage example.</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;!-- Update relevant sexion in README, too --&gt;</span>
 <span class="doccomment">//! # Format spec</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Requests to a servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made</span>
+<span class="doccomment">//! Requests to servers that support RFSAPI (e.g. [`http`](https://crates.io/crates/https)) can be made</span>
 <span class="doccomment">//! by doing a GET request and setting the `X-Raw-Filesystem-API` header to `1`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The header has no bearing on non-GET requests.</span>
@@ -419,7 +421,7 @@
 <span class="doccomment">//! 4. `files` is the list of files in the listing and will have only one member if `is_file` is true —</span>
 <span class="doccomment">//!    this array is not sorted in any particular order.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing.</span>
+<span class="doccomment">//! The [`RawFileData`](struct.RawFileData.html) objects describe each individual file in a listing:</span>
 <span class="doccomment">//! ```json</span>
 <span class="doccomment">//! {</span>
 <span class="doccomment">//!   &quot;mime_type&quot;: MIME type as string,</span>
@@ -450,7 +452,7 @@
 <span class="doccomment">//!     └── b.txt</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Then the metadata `curl -v -H &quot;X-Raw-Filesystem-API: 1&quot; 127.0.0.1:8000` invocation might look something like this:</span>
+<span class="doccomment">//! Then the metadata of a `curl -v -H &quot;X-Raw-Filesystem-API: 1&quot; 127.0.0.1:8000` invocation might look something like this:</span>
 <span class="doccomment">//! ```plaintext</span>
 <span class="doccomment">//! * Expire in 0 ms for 6 (transfer 0x55dc328b3e80)</span>
 <span class="doccomment">//! *   Trying 127.0.0.1...</span>
