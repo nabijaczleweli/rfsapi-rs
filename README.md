@@ -134,3 +134,9 @@ To see inside the `works` directory we can `curl -H "X-Raw-Filesystem-API: 1" 12
   ]
 }
 ```
+
+## Special thanks
+
+To all who support further development on Patreon, in particular:
+
+  * ThePhD

@@ -9,6 +9,8 @@
 !gh_rsa.enc
 !*.md
 !*.sublime-project
+!.github
+!.github/**
 !src
 !src/**
 !tests
